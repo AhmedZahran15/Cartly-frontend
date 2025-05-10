@@ -3,3 +3,34 @@
 @plugin "tailwindcss-primeui";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
 @import "primeicons/primeicons.css";
+
+@theme {
+  --color-background: #fefcf9;
+  --color-surface: #f7f4f1;
+  --color-on-background: #5a443b;
+  --color-on-surface: #090301;
+  --color-primary: #ecc696;
+  --color-secondary: #7a6256;
+  --color-accent: #a28668;
+  --color-link: #4a3227;
+  --color-link-hover: #e4b77f;
+  --color-border: #d0d0d0;
+  --color-overlay: rgba(233, 233, 233, 0.5);
+  --shadow-default: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.my-app-dark {
+  --color-background: #120e0b;
+  --color-surface: #33291f;
+  --color-on-background: #e0d5c8;
+  --color-on-surface: #f0e8db;
+  --color-primary: #ecc696;
+  --color-secondary: #7a6256;
+  --color-accent: #a28668;
+  --color-link: #f0e8db;
+  --color-link-hover: #ecc696;
+  --color-border: #4a3c32;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --shadow-default: 0 0 10px rgba(0,0,0,0.4);
+}
+
