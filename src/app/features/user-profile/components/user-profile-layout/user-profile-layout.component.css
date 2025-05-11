@@ -1,0 +1,29 @@
+
+.navbar{
+    background-color: var(--color-background);
+    padding: 10px;
+    margin: 3%;
+    margin-left: 5%;
+    border: var(--color-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-default);
+    line-height: 2.5;
+    width: 20%;
+}
+
+.navbar a{
+    color: var(--color-on-background);
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    
+}
+
+.navbar li:hover{
+    background-color: var(--color-primary);
+    color: var(--color-link-hover);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

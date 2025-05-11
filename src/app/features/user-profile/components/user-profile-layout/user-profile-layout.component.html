@@ -1,0 +1,68 @@
+<div class="flex h-screen mainProfileLayout">
+
+   
+    <!-- Sidebar -->
+    <nav class="w-64  p-4 navbar">
+       <section class=" p-4 text-black">
+        <div class="flex items-center mb-4">
+          <img src="assets/images/default-avatar.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-2">
+          <div class="flex flex-col p-2">
+          <span class="text-sm">John Doe</span>
+          <span class="text-xs text-gray-500 ">johndoe&#64;gmail.com</span>
+          </div>
+         
+        </div>
+    </section>
+    <hr class="border-gray-300 mb-4">
+      <ul>
+        <li class="flex items-center">
+          <img src="icons/shopping-bag.png" alt="order" class="w-5 h-5 mr-3" />
+          <a routerLink="account" routerLinkActive="font-bold">Orders</a>
+        </li>
+        
+        <li class="flex items-center">
+          <img src="icons/wishlist.png" alt="wishlist" class="w-5 h-5 mr-3" />
+          <a routerLink="wis</li>hlist" routerLinkActive="font-bold">Wishlist</a>
+        </li>
+
+        <li class="flex items-center">
+          <img src="icons/product-return.png" alt="returns" class="w-5 h-5 mr-3" />
+          <a routerLink="orders" routerLinkActive="font-bold">Returns</a>
+        </li>
+      </ul>
+      <hr class="border-gray-300 my-4">
+      <ul>
+        <li class="flex items-center">
+          <img src="icons/user.png" alt="" class="w-5 h-5 mr-3">
+          <a routerLink="account" routerLinkActive="font-bold">Account</a>
+        </li>
+
+        <li class="flex items-center">
+          <img src="icons/pin.png" alt="" class="w-5 h-5 mr-3">
+          <a routerLink="address" routerLinkActive="font-bold">Address</a>
+        </li>
+
+        <li class="flex items-center">
+          <img src="icons/payment-protection.png" alt="" class="w-5 h-5 mr-3">
+          <a routerLink="payment" routerLinkActive="font-bold">Payment</a>
+        </li>
+      </ul> 
+        <hr class="border-gray-300 my-4">
+
+      <ul>
+        <li class="flex items-center">
+          <img src="icons/log-out.png" alt="" class="w-5 h-5 mr-3">
+          <a routerLink="logout" routerLinkActive="font-bold">Sign Out</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <!-- Main Content -->
+    <main class="flex-1 p-6 bg-white overflow-auto">
+      <h1>content </h1>
+      <router-outlet></router-outlet>
+    </main>
+
+</div>
+
+  
