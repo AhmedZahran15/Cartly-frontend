@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdersService } from '../../../services/orders.service';
+import { OrdersService } from '../../../services/orders/orders.service';
 import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { DataViewModule } from 'primeng/dataview';
