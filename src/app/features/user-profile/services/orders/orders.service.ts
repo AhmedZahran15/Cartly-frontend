@@ -12,4 +12,15 @@ export class OrdersService {
   getOrders() {
     return this.http.get(`${this.baseUrl}`);
   }
+
+  // Add new order
+  addToOrders(order: any) {
+    return this.http.post(`${this.baseUrl}`, order);
+  }
+
+  // Remove an order
+  removeOrder(orderId: string) {
+    return this.http.delete(`${this.baseUrl}/${orderId}`);
+  }
+
 }
