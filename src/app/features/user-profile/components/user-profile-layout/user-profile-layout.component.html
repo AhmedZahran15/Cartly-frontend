@@ -13,19 +13,19 @@
     </section>
     <hr class="border-gray-300 mb-4">
       <ul>
-        <li class="flex items-center">
+        <li class="flex items-center" routerLinkActive="font-bold">
           <img src="icons/shopping-bag.png" alt="order" class="w-5 h-5 mr-3" />
-          <a routerLink="account" routerLinkActive="font-bold">Orders</a>
+          <a routerLink="/profile/orders" >Orders</a>
         </li>
         
         <li class="flex items-center">
           <img src="icons/wishlist.png" alt="wishlist" class="w-5 h-5 mr-3" />
-          <a routerLink="wis</li>hlist" routerLinkActive="font-bold">Wishlist</a>
+          <a routerLink="/profile/wishlist" routerLinkActive="font-bold">Wishlist</a>
         </li>
 
         <li class="flex items-center">
           <img src="icons/product-return.png" alt="returns" class="w-5 h-5 mr-3" />
-          <a routerLink="orders" routerLinkActive="font-bold">Returns</a>
+          <a routerLink="/profile/returns" routerLinkActive="font-bold">Returns</a>
         </li>
       </ul>
 
@@ -34,17 +34,17 @@
       <ul>
         <li class="flex items-center">
           <img src="icons/user.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="account" routerLinkActive="font-bold">Account</a>
+          <a routerLink="/profile/account" routerLinkActive="font-bold">Account</a>
         </li>
 
         <li class="flex items-center">
           <img src="icons/pin.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="address" routerLinkActive="font-bold">Address</a>
+          <a routerLink="/profile/address" routerLinkActive="font-bold">Address</a>
         </li>
 
         <li class="flex items-center">
           <img src="icons/payment-protection.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="payment" routerLinkActive="font-bold">Payment</a>
+          <a routerLink="/profile/payment" routerLinkActive="font-bold">Payment</a>
         </li>
       </ul> 
 
@@ -53,14 +53,13 @@
       <ul>
         <li class="flex items-center">
           <img src="icons/log-out.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="logout" routerLinkActive="font-bold">Sign Out</a>
+          <a routerLink="/profile/logout" routerLinkActive="font-bold">Sign Out</a>
         </li>
       </ul>
     </nav>
   
     <!-- Main Content -->
     <main class="flex-1 p-6 bg-white overflow-auto">
-      <h1>content </h1>
       <router-outlet></router-outlet>
     </main>
 
