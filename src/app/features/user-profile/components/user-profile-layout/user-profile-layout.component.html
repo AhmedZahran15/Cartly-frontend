@@ -1,68 +1,88 @@
-<div class="flex h-screen mainProfileLayout">
-    <!-- Sidebar -->
-    <nav class="w-64  p-4 navbar">
-       <section class=" p-4 text-black">
-        <div class="flex items-center mb-4">
-          <img src="assets/images/default-avatar.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-2">
-          <div class="flex flex-col p-2">
-          <span class="text-sm">John Doe</span>
-          <span class="text-xs text-gray-500 ">johndoe&#64;gmail.com</span>
-          </div>
-         
-        </div>
-    </section>
-    <hr class="border-gray-300 mb-4">
-      <ul>
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/shopping-bag.png" alt="order" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/orders" >Orders</a>
-        </li>
-        
-        <li class="flex items-center" routerLinkActive="font-bold" >
-          <img src="icons/wishlist.png" alt="wishlist" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/wishlist" >Wishlist</a>
-        </li>
+<div class="min-h-screen bg-gray-100 font-sans mainProfileLayout">
+  <!-- Mobile Menu Button -->
+  <button type="button" id="menuToggle" class="md:hidden p-4 focus:outline-none">
+    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
 
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/product-return.png" alt="returns" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/returns" >Returns</a>
+  <div class="flex flex-col md:flex-row">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="w-full md:w-72 bg-white p-6 shadow-lg rounded-xl m-4 md:m-6 hidden md:block">
+      <!-- User Info -->
+      <section class="mb-6">
+        <div class="flex items-center">
+          <img src="assets/images/default-avatar.png" alt="User Avatar"
+            class="w-14 h-14 rounded-full border-2 border-gray-300" />
+          <div class="ml-3">
+            <span class="block text-base font-semibold text-gray-800">John Doe</span>
+            <span class="text-sm text-gray-500">johndoe&#64;gmail.com</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="border-gray-200 mb-4" />
+
+      <!-- Nav Links -->
+      <ul class="space-y-2">
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/shopping-bag.png" alt="Orders" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/orders" class="text-gray-700 hover:text-indigo-600">Orders</a>
+        </li>
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/wishlist.png" alt="Wishlist" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/wishlist" class="text-gray-700 hover:text-indigo-600">Wishlist</a>
+        </li>
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/product-return.png" alt="Returns" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/returns" class="text-gray-700 hover:text-indigo-600">Returns</a>
         </li>
       </ul>
 
-      <hr class="border-gray-300 my-4">
+      <hr class="border-gray-200 my-4" />
+
+      <ul class="space-y-2">
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/user.png" alt="Account" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/account" class="text-gray-700 hover:text-indigo-600">Account</a>
+        </li>
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/pin.png" alt="Address" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/address" class="text-gray-700 hover:text-indigo-600">Address</a>
+        </li>
+        <li class="flex items-center p-2 rounded-lg hover:bg-indigo-50 transition" routerLinkActive="font-bold">
+          <img src="icons/payment-protection.png" alt="Payment" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/payment" class="text-gray-700 hover:text-indigo-600">Payment</a>
+        </li>
+      </ul>
+
+      <hr class="border-gray-200 my-4" />
 
       <ul>
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/user.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="/profile/account" >Account</a>
-        </li>
-
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/pin.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="/profile/address" >Address</a>
-        </li>
-
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/payment-protection.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="/profile/payment" >Payment</a>
-        </li>
-      </ul> 
-
-        <hr class="border-gray-300 my-4">
-
-      <ul>
-        <li class="flex items-center" routerLinkActive="font-bold">
-          <img src="icons/log-out.png" alt="" class="w-5 h-5 mr-3">
-          <a routerLink="/profile/logout" >Sign Out</a>
+        <li class="flex items-center p-2 rounded-lg hover:bg-red-100 transition" routerLinkActive="font-bold">
+          <img src="icons/log-out.png" alt="Sign Out" class="w-5 h-5 mr-3" />
+          <a routerLink="/profile/logout" class="text-red-600 hover:underline">Sign Out</a>
         </li>
       </ul>
     </nav>
-  
+
     <!-- Main Content -->
-    <main class="flex-1 p-6 bg-white overflow-auto">
+    <main class="flex-1 p-4 md:p-8">
       <router-outlet></router-outlet>
     </main>
-
+  </div>
 </div>
 
-  
+<!-- Script to toggle sidebar -->
+<script>
+  const toggleBtn = document.getElementById("menuToggle");
+  const sidebar = document.getElementById("sidebar");
+  toggleBtn?.addEventListener("click", () => {
+    if (sidebar.classList.contains("hidden")) {
+      sidebar.classList.remove("hidden");
+    } else {
+      sidebar.classList.add("hidden");
+    }
+  });
+</script>

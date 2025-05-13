@@ -1,33 +1,30 @@
 
-.navbar{
-    background-color: var(--color-background);
-    padding: 10px;
-    margin: 3%;
-    margin-left: 5%;
-    border: var(--color-border);
-    border-radius: 10px;
-    box-shadow: var(--shadow-default);
-    line-height: 2.5;
-    width: 20%;
+.navbar {
+  background-color: var(--color-background);
+  border: var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-default);
+  line-height: 2.2;
+  width: 100%;
+  max-width: 280px;
 }
 
-.navbar a{
-    color: var(--color-on-background);
-    text-decoration: none;
-    font-size: 1em;
-    font-weight: bold;
-    
+.navbar a {
+  color: var(--color-on-background);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.navbar li:hover{
-    background-color: var(--color-primary);
-    color: var(--color-link-hover);
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.navbar li:hover {
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
 }
 
-.font-bold{
-    background-color: var(--color-primary);
+.font-bold {
+  font-weight: 700;
+  color: var(--color-primary);
 }
