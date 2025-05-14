@@ -11,10 +11,14 @@ import {
 } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideAnimations(),
+    provideHttpClient(),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     providePrimeNG({
