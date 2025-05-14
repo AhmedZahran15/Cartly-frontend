@@ -114,18 +114,6 @@ export class ApiService {
    * @returns Observable with error
    */
   private handleError(error: any): Observable<never> {
-    let errorMsg: string;
-
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMsg = `Client Error: ${error.error.message}`;
-    } else {
-      // Server-side error
-      errorMsg =
-        error.error?.message ||
-        `Server Error: ${error.status} - ${error.statusText}`;
-    }
-
-    return throwError(() => new Error(errorMsg));
+    return throwError(() => error);
   }
 }
