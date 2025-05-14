@@ -25,7 +25,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   }
 
   // User is not authenticated at all
-  router.navigate(['/login'], {
+  router.navigate(['/auth/login'], {
     queryParams: { returnUrl: state.url },
   });
 

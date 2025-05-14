@@ -1,4 +1,9 @@
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpHandlerFn,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError, switchMap } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
@@ -29,9 +34,9 @@ export const authInterceptor: HttpInterceptorFn = (
   if (authService.isTokenExpired()) {
     // Token is expired, logout silently and redirect if not already on login page
     authService.logout();
-    if (!router.url.includes('/login')) {
-      router.navigate(['/login'], {
-        queryParams: { expired: 'true' }
+    if (!router.url.includes('/auth/login')) {
+      router.navigate(['/auth/login'], {
+        queryParams: { expired: 'true' },
       });
     }
     return next(req);
@@ -51,8 +56,8 @@ export const authInterceptor: HttpInterceptorFn = (
         const freshToken = authService.getToken();
         const authReq = req.clone({
           setHeaders: {
-            Authorization: `Bearer ${freshToken}`
-          }
+            Authorization: `Bearer ${freshToken}`,
+          },
         });
         return next(authReq);
       })
@@ -65,8 +70,8 @@ export const authInterceptor: HttpInterceptorFn = (
   if (token) {
     const authReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     // Process the request with token and handle any auth errors
@@ -77,7 +82,7 @@ export const authInterceptor: HttpInterceptorFn = (
           // Token expired or invalid, logout the user
           authService.logout();
           router.navigate(['/login'], {
-            queryParams: { unauthorized: 'true' }
+            queryParams: { unauthorized: 'true' },
           });
         }
         return throwError(() => error);

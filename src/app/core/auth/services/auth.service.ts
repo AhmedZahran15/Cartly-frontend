@@ -196,6 +196,8 @@ export class AuthService {
 
     // Set up auto logout timer
     this.setAutoLogoutTimer();
+    
+    this.router.navigate(['/']);
   }
 
   /**
@@ -361,7 +363,7 @@ export class AuthService {
     this.clearLogoutTimer();
 
     if (redirectToLogin) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     }
   }
 
