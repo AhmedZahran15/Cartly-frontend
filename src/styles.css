@@ -34,4 +34,12 @@
   --color-overlay: rgba(0, 0, 0, 0.5);
   --shadow-default: 0 0 10px rgba(0,0,0,0.4);
 }
-
+@layer base {
+  html, body {
+    font-family: "Hind Guntur", sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poiret One", cursive;
+     letter-spacing: 0.1em;
+  }
+}
