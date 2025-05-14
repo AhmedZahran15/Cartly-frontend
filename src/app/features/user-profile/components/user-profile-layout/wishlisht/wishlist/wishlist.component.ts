@@ -2,13 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../../services/wishlist/wishlist.service';
 import { CommonModule } from '@angular/common';
 import { Wishlist } from '../wishlist';
-
+import { DataViewModule } from 'primeng/dataview';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { RippleModule } from 'primeng/ripple';
+import { InputTextModule } from 'primeng/inputtext';
+  
 @Component({
   selector: 'app-wishlist',
-  imports: [ CommonModule],
+  imports: [ CommonModule, CardModule, ButtonModule, DividerModule, RippleModule, InputTextModule ],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
-})
+}) 
 export class WishlistComponent implements OnInit{
 wishlist: Wishlist = {
     _id: '',

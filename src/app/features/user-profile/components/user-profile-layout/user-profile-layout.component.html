@@ -1,7 +1,7 @@
-<div class="min-h-screen bg-gray-100 font-sans mainProfileLayout">
+<div class="min-h-screen bg-background font-sans mainProfileLayout">
   <!-- Mobile Menu Button -->
   <button type="button" id="menuToggle" class="md:hidden p-4 focus:outline-none">
-    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" stroke-width="2"
       viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
@@ -9,7 +9,7 @@
 
   <div class="flex flex-col md:flex-row">
     <!-- Sidebar -->
-    <nav id="sidebar" class="w-full md:w-72 bg-white p-6 shadow-lg rounded-xl m-4 md:m-6 hidden md:block">
+    <nav id="sidebar" class="w-full md:w-72 bg-background border border-border p-6 shadow-lg rounded-xl m-4 md:m-6 hidden md:block">
       <!-- User Info -->
       <section class="mb-6">
         <div class="flex items-center"> 
@@ -17,53 +17,47 @@
             class="w-14 h-14 rounded-full border-2 border-gray-300" />
           <img src="{{user.image}}" *ngIf="user.image != null" alt="User Avatar"
             class="w-14 h-14 rounded-full border-2 border-gray-300" /> 
-          <div class="ml-3"> 
-            <span class="block text-base font-semibold text-gray-800"> Hello! {{user.firstName}}</span>
-            <span class="text-sm text-gray-500">{{user.email}}</span> 
+          <div class="ml-3 "> 
+            <span class="block text-base font-semibold text-accent"> Hello! {{user.firstName}}</span>
+            <span class="text-sm text-secondary">{{user.email}}</span> 
           </div>
         </div>
       </section>
 
-      <hr class="border-gray-200 mb-4" />
+      <hr class="border-accent mb-4" />
 
       <!-- Nav Links -->
       <ul class="space-y-2">
         <li class="flex items-center p-2 rounded-lg transition" routerLinkActive="font-bold">
-          <img src="icons/shopping-bag.png" alt="Orders" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/orders" class="text-gray-700 ">Orders</a>
+         
+          <a routerLink="/profile/orders" class="text-accent ">Orders</a>
         </li>
         <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <img src="icons/wishlist.png" alt="Wishlist" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/wishlist" class="text-gray-700 ">Wishlist</a>
+          <a routerLink="/profile/wishlist" class="text-accent ">Wishlist</a>
         </li>
         <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <img src="icons/product-return.png" alt="Returns" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/returns" class="text-gray-700 ">Returns</a>
+          <a routerLink="/profile/returns" class="text-accent ">Returns</a>
         </li>
       </ul>
 
-      <hr class="border-gray-200 my-4" />
+      <hr class="border-accent my-4" />
 
       <ul class="space-y-2">
         <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <img src="icons/user.png" alt="Account" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/account" class="text-gray-700 ">Account</a>
+          <a routerLink="/profile/account" class="text-accent ">Account</a>
         </li>
         <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <img src="icons/pin.png" alt="Address" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/address" class="text-gray-700 ">Address</a>
+          <a routerLink="/profile/address" class="text-accent ">Address</a>
         </li>
         <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <img src="icons/payment-protection.png" alt="Payment" class="w-5 h-5 mr-3" />
-          <a routerLink="/profile/payment" class="text-gray-700 ">Payment</a>
+          <a routerLink="/profile/payment" class="text-accent ">Payment</a>
         </li>
       </ul>
 
-      <hr class="border-gray-200 my-4" />
+      <hr class="border-accent my-4" />
 
       <ul>
         <li class="flex items-center p-2 rounded-lg hover:bg-red-100 transition" routerLinkActive="font-bold">
-          <img src="icons/log-out.png" alt="Sign Out" class="w-5 h-5 mr-3" />
           <a routerLink="/profile/logout" class="text-red-600 hover:underline">Sign Out</a>
         </li>
       </ul>
