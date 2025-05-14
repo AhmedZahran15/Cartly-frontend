@@ -17,6 +17,7 @@
   --color-border: #d0d0d0;
   --color-overlay: rgba(233, 233, 233, 0.5);
   --shadow-default: 0 0 10px rgba(0,0,0,0.05);
+  --color-iconbg:#221d1b;
 }
 
 .my-app-dark {
