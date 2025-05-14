@@ -54,6 +54,33 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Environment Setup
+
+This project uses environment configuration files that are not included in version control for security reasons. Follow these steps to set up your environment:
+
+1. Navigate to the `/src/environments/` directory
+2. Copy the template files:
+
+   ```bash
+   cp environment.template.ts environment.ts
+   cp environment.prod.template.ts environment.prod.ts
+   ```
+
+3. Update the configurations in these files with your specific settings:
+   - `environment.ts` for development
+   - `environment.prod.ts` for production
+
+### Required Environment Variables
+
+The environment files include the following variables:
+
+```typescript
+export const environment = {
+  production: boolean, // true for production, false for development
+  apiUrl: string, // URL to your backend API
+};
+```
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
