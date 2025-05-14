@@ -1,0 +1,28 @@
+
+.navbar {
+  background-color: var(--color-background);
+  border: var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-default);
+  line-height: 2.2;
+  width: 100%;
+  max-width: 280px;
+}
+
+.navbar a {
+  color: var(--color-on-background);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+li:hover{
+  background-color: var(--color-link-hover);
+}
+
+.font-bold {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+

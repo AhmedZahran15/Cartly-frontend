@@ -1,0 +1,40 @@
+<div class="p-6 bg-white  rounded-lg shadow p-8 max-w-8xl mx-auto space-y-7" >
+  <h2 class="text-2xl font-semibold mb-4">My addresses</h2>
+
+  <div *ngIf="adress.length===0" class="text-gray-500">
+    You have no addresses yet.
+  </div>
+ <div *ngFor="let address of adress" class="mb-6 border border-gray-200 p-4 rounded-lg shadow-sm">
+  <div class="grid md:grid-cols-3 gap-4">
+    <div>
+      <label class="block text-sm text-gray-600 mb-1">Street</label>
+      <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="address.street" placeholder="{{address.street}}">
+    </div>
+    <div> 
+      <label class="block text-sm text-gray-600 mb-1">City</label>
+      <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="address.city" placeholder="{{address.city}}">
+    </div>
+    <div>
+      <label class="block text-sm text-gray-600 mb-1">State</label>
+      <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="address.state" placeholder="{{address.state}}">
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4 mt-4">
+    <div>
+      <label class="block text-sm text-gray-600 mb-1">ZIP Code</label>
+      <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="address.zip" placeholder="{{address.zip}}">
+    </div>
+    <div>
+      <label class="block text-sm text-gray-600 mb-1">Country</label>
+      <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="address.country" placeholder="{{address.country}}">
+    </div>
+  </div>
+
+  <div class="flex items-center mt-4 space-x-2">
+    <input type="checkbox" [(ngModel)]="address.isDefault" class="rounded text-blue-600 focus:ring-0" placeholder="Set as default address">
+    <label class="text-sm text-gray-700">Set as default address</label>
+  </div>
+</div>
+
+</div>  

@@ -1,0 +1,61 @@
+<div class="bg-white rounded-lg shadow p-8 max-w-8xl mx-auto space-y-7">
+  <h2 class="text-2xl font-bold text-gray-800">Profile</h2>
+  <p class="text-sm text-gray-500">View & Update Your Personal and Contact Information</p>
+
+  <!-- Contact Information -->
+  <div>
+    <h3 class="text-lg font-semibold text-gray-700 mb-4">Contact Information</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Email</label>
+        <input type="email" class="w-full p-3 rounded border border-gray-300 bg-gray-100 cursor-not-allowed" [value]="user.email" disabled placeholder={{user.email}}>
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Phone number</label>
+        <input type="text" class="w-full p-3  rounded border border-gray-300" [(ngModel)]="user.phone" placeholder="Enter your Phone Number">
+      </div>
+    </div>
+    <p class="text-xs text-gray-400 mt-2">This can be used to login across all our apps.</p>
+  </div>
+
+  <!-- Personal Information -->
+  <div>
+    <h3 class="text-lg font-semibold text-gray-700 mb-4">Personal Information</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">First name</label>
+        <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="user.firstName" placeholder="Enter your first name">
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Last name</label>
+        <input type="text" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="user.lastName" placeholder="Enter your last name">
+      </div>
+      
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-4">
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Birthday</label>
+        <input type="date" class="w-full p-3 rounded border border-gray-300" [(ngModel)]="user.birthday" placeholder="Enter your Birthday">
+        <p class="text-xs text-green-600 mt-1">🎉 Get offers on your special day!</p>
+      </div>
+      <div class="col-span-2 flex items-center">
+        <label class="mr-4">Gender:</label>
+        <label class="mr-4 flex items-center space-x-2">
+          <input type="radio" name="gender" [(ngModel)]="user.gender" value="Male" >    
+          <span>Male</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="gender" [(ngModel)]="user.gender" value="Female" >
+          <span>Female</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-left">
+    <button class="px-6 py-3 text-white rounded-l submit-bttn" (click)="submitProfileUpdate()">
+      Update Profile
+    </button>
+  </div>
+</div>

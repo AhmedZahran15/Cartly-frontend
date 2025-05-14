@@ -1,0 +1,57 @@
+<div class="p-6 bg-white  rounded-lg shadow p-8 max-w-8xl mx-auto space-y-7">
+  <h2 class="text-2xl font-semibold mb-4">My Wishlist</h2>
+
+  <div *ngIf="wishlist?.items?.length === 0" class="text-gray-500  py-6">
+    Your wishlist is empty.
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 md:px-6">
+    <div
+      *ngFor="let item of wishlist?.items"
+      class="bg-white border shadow-sm hover:shadow-md transition duration-300 overflow-hidden"
+    >
+      <img
+        [src]="item.products.images[2]"
+        alt="Product Image"
+        class="w-full h-36 object-cover"
+      />
+
+      <!-- Content -->
+      <div class="p-3 flex flex-col gap-2">
+        <div>
+          <h2 class="text-base font-semibold text-gray-800 truncate">
+            {{ item.products.name }}
+          </h2>
+          <p class="text-xs text-gray-500">
+            Luminosity: {{ item.products.specifications.Luminosity }}
+          </p>
+          <p class="text-xs text-gray-500">Gender: {{ item.products.gender }}</p>
+          <p class="text-gray-600 text-xs line-clamp-2 mt-1">
+            {{ item.products.description }}
+          </p>
+        </div>
+
+        <!-- Bottom actions -->
+        <div class="flex justify-between items-center">
+          <!-- Price -->
+          <div *ngIf="item.products.discountPrice == null">
+            <span class="text-green-600 font-semibold text-sm">${{ item.products.price }}</span>
+          </div>
+
+          <div *ngIf="item.products.discountPrice != null">
+            <span class="text-green-600 font-semibold text-sm">${{ item.products.discountPrice }}</span>
+            <span class="text-gray-400 line-through ml-1 text-xs">${{ item.products.price }}</span>
+          </div>
+
+          <!-- Remove Button -->
+          <button
+            (click)="removeFromWishlist(item.products._id)"
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
