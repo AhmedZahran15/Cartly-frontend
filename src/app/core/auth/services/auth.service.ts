@@ -151,11 +151,31 @@ export class AuthService {
       return;
     }
 
-    // Set timer to auto logout when token expires
-    // Subtract 30 seconds to account for potential network delays
+    // Constants
+    const BUFFER_TIME = 30000; // 30 seconds buffer for network delays
+    const MAX_TIMEOUT = 2147483647; // Max setTimeout value (~24.8 days)
+    
+    // Calculate the ideal delay (with buffer for network delays)
+    const idealDelay = expiresIn - BUFFER_TIME;
+    
+    // Ensure delay is within JavaScript's setTimeout limits and non-negative
+    const safeDelay = Math.min(Math.max(0, idealDelay), MAX_TIMEOUT);
+    
     this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
-    }, expiresIn - 30000);
+      // If we reached the maximum timeout but the token isn't expired yet,
+      // we need to set up another timer for the remaining time
+      if (idealDelay > MAX_TIMEOUT && !this.isTokenExpired()) {
+        // Token still valid, reset the timer for the remaining time
+        this.setAutoLogoutTimer();
+      } else if (this.isTokenExpired()) {
+        // Token is expired, perform logout
+        this.logout();
+      } else {
+        // Edge case: token expiration changed or something unexpected happened
+        // Reset the timer to be safe
+        this.setAutoLogoutTimer();
+      }
+    }, safeDelay);
   }
 
   /**
@@ -196,8 +216,9 @@ export class AuthService {
 
     // Set up auto logout timer
     this.setAutoLogoutTimer();
-    
-    this.router.navigate(['/']);
+
+    // Navigate to home page
+    this.router.navigate(['/home']);
   }
 
   /**
@@ -280,6 +301,9 @@ export class AuthService {
       const decodedToken = jwtDecode<
         JwtPayload & { userId?: string; role?: string }
       >(token);
+
+      if (!decodedToken.exp) return true;
+
       const currentTime = Date.now() / 1000; // Convert to seconds
       return (decodedToken.exp || 0) < currentTime;
     } catch (error) {
@@ -302,9 +326,7 @@ export class AuthService {
       >(token);
       if (!decodedToken.exp) return null;
 
-      const expirationDate = new Date(0);
-      expirationDate.setUTCSeconds(decodedToken.exp);
-      return expirationDate;
+      return new Date(decodedToken.exp * 1000);
     } catch (error) {
       return null;
     }
