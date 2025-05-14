@@ -19,6 +19,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     providePrimeNG({
       theme: {
         preset: Aura,
