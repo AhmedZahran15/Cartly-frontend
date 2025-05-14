@@ -1,4 +1,4 @@
-import { Component, HostListener , inject} from '@angular/core';
+import { Component , inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -19,11 +19,11 @@ export class NavbarComponent {
   private _router = inject(Router);
   private _cartService = inject(CartService);
 
-  isScrolled = false;
   isAuthenticated = false;
   cartVisible = false;
+   menuVisible = false;
   profileMenuItems: MenuItem[] = [];
-  cartItems = 0; 
+  cartItems = 0;
 
   links = [
     { label: 'Home', path: '/' },
@@ -34,11 +34,6 @@ export class NavbarComponent {
 
   constructor() {
     this.updateProfileMenu();
-  }
-
-  @HostListener('window:scroll')
-  onWindowScroll() {
-    this.isScrolled = window.scrollY > 50;
   }
 
   updateProfileMenu() {
