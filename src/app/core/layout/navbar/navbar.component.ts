@@ -37,16 +37,32 @@ export class NavbarComponent {
   }
 
   updateProfileMenu() {
-    this.profileMenuItems = this.isAuthenticated
-      ? [
-          { label: 'My Profile', icon: 'pi pi-user', command: () => this._router.navigate(['/profile']) },
-          { label: 'Sign Out', icon: 'pi pi-sign-out', command: () => this.logout() }
-        ]
-      : [
-          { label: 'Sign In', icon: 'pi pi-sign-in', command: () => this._router.navigate(['/login']) },
-          { label: 'Register', icon: 'pi pi-user-plus', command: () => this._router.navigate(['/register']) }
-        ];
-  }
+  this.profileMenuItems = this.isAuthenticated
+    ? [
+        {
+          label: 'My Profile',
+          icon: 'pi pi-user',
+          command: () => this._router.navigate(['/profile']),
+        },
+        {
+          label: 'Sign Out',
+          icon: 'pi pi-sign-out',
+          command: () => this.logout(),
+        },
+      ]
+    : [
+        {
+          label: 'Sign In',
+          icon: 'pi pi-sign-in',
+          command: () => this._router.navigate(['/login']),
+        },
+        {
+          label: 'Register',
+          icon: 'pi pi-user-plus',
+          command: () => this._router.navigate(['/register']),
+        },
+      ];
+}
 
   toggleAuth() {
     this.isAuthenticated = !this.isAuthenticated;

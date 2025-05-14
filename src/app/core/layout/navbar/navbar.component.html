@@ -1,4 +1,4 @@
-<nav class="w-full fixed top-0 left-0 z-50 bg-transparent pt-3">
+<nav class="w-full absolute top-0 left-0 z-50 bg-transparent pt-3">
   <div class="container mx-auto px-6 py-4 flex justify-between items-center">
     <!-- Brand -->
     <h1>
@@ -6,71 +6,42 @@
     </h1>
 
     <!-- Hamburger Menu (Mobile) -->
-    <button 
-      class="lg:hidden text-primary text-2xl" 
+    <button
+      class="lg:hidden text-primary text-2xl"
       (click)="menuVisible = !menuVisible"
       aria-label="Toggle Menu"
     >
       <i class="pi pi-bars"></i>
     </button>
 
-    <!-- Desktop Navigation Links & Icons -->
-    <div class="hidden lg:flex flex-1 justify-between items-center">
-      <!-- Navigation Links -->
-      <ul class="flex justify-center space-x-8 list-none p-0 m-0 text-xl">
-        <li *ngFor="let link of links" class="relative group">
-          <a
-            [routerLink]="link.path"
-            class="text-on-background hover:text-primary transition-colors"
-            pRipple
-          >
-            {{ link.label }}
-            <div
-              class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"
-            ></div>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Icons Section -->
-      <div class="flex items-center space-x-4">
-        <!-- Profile -->
-        <i
-          class="pi pi-user text-on-background hover:text-primary cursor-pointer"
-          (click)="profileMenu.toggle($event)"
-          tooltipPosition="bottom"
-        ></i>
-        <p-menu
-          #profileMenu
-          [popup]="true"
-          [model]="profileMenuItems"
-        ></p-menu>
-
-        <!-- Cart -->
-        <i
-          class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer relative text-lg"
-          (click)="cartVisible = true"
-          tooltipPosition="bottom"
+    <!-- Navigation Links -->
+    <ul
+      class="hidden lg:flex flex-1 justify-center space-x-8 list-none p-0 m-0 text-xl"
+      [ngClass]="{ block: menuVisible, hidden: !menuVisible }"
+    >
+      <li *ngFor="let link of links" class="relative group">
+        <a
+          [routerLink]="link.path"
+          class="text-on-background hover:text-primary transition-colors"
+          pRipple
         >
-          <span
-            *ngIf="cartService.itemCount > 0"
-            class="absolute -top-1 -right-1 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
-          >
-            {{ cartService.itemCount }}
-          </span>
-        </i>
-      </div>
-    </div>
+          {{ link.label }}
+          <div
+            class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"
+          ></div>
+        </a>
+      </li>
+    </ul>
 
     <!-- Mobile Menu -->
-    <div 
+    <div
       class="lg:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center transition-all duration-300"
       [ngClass]="{
         'opacity-100 visible': menuVisible,
         'opacity-0 invisible': !menuVisible
       }"
     >
-      <button 
+      <button
         class="absolute top-4 right-6 text-white text-3xl"
         (click)="menuVisible = false"
         aria-label="Close Menu"
@@ -79,8 +50,8 @@
       </button>
       <ul class="space-y-6 text-center text-white text-2xl">
         <li *ngFor="let link of links">
-          <a 
-            [routerLink]="link.path" 
+          <a
+            [routerLink]="link.path"
             (click)="menuVisible = false"
             class="hover:text-primary transition-colors"
           >
@@ -89,11 +60,36 @@
         </li>
       </ul>
     </div>
+
+    <!-- Icons Section -->
+    <div class="hidden lg:flex items-center space-x-4">
+      <!-- Profile -->
+      <i
+        class="pi pi-user text-on-background hover:text-primary cursor-pointer"
+        (click)="profileMenu.toggle($event)"
+        tooltipPosition="bottom"
+      ></i>
+      <p-menu #profileMenu [popup]="true" [model]="profileMenuItems"></p-menu>
+
+      <!-- Cart -->
+      <i
+        class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer relative text-lg"
+        (click)="cartVisible = true"
+        tooltipPosition="bottom"
+      >
+        <span
+          *ngIf="cartService.itemCount > 0"
+          class="absolute -top-1 -right-1 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
+        >
+          {{ cartService.itemCount }}
+        </span>
+      </i>
+    </div>
   </div>
 
   <!-- Cart Sidebar -->
-  <p-sidebar 
-    [(visible)]="cartVisible" 
+  <p-sidebar
+    [(visible)]="cartVisible"
     position="right"
     [showCloseIcon]="false"
     [ngClass]="{
@@ -101,22 +97,22 @@
       'bg-surface': true,
       'text-on-surface': true,
       'border-l border-border': true,
-      'relative': true
+      relative: true
     }"
   >
     <!-- Close Button -->
     <button
-        pButton
-        icon="pi pi-times"
-        [ngClass]="{
-            'absolute top-0 -left-10': true,
-            'p-button-text': true,
-            'bg-primary text-white': true,
-            'hover:bg-secondary hover:text-primary': true,
-            '!shadow-none': true,
-             'border-none': true,
-        }"
-        (click)="cartVisible = false"
+      pButton
+      icon="pi pi-times"
+      [ngClass]="{
+        'absolute top-0 -left-10': true,
+        'p-button-text': true,
+        'bg-primary text-white': true,
+        'hover:bg-secondary hover:text-primary': true,
+        '!shadow-none': true,
+        'border-none': true
+      }"
+      (click)="cartVisible = false"
     ></button>
 
     <!-- Sidebar Content -->
@@ -128,33 +124,38 @@
 
       <!-- Items List -->
       <div class="flex-1 overflow-y-auto p-6">
-        <div *ngIf="cartService.items.length === 0" class="h-full flex items-center justify-center">
+        <div
+          *ngIf="cartService.items.length === 0"
+          class="h-full flex items-center justify-center"
+        >
           <p class="text-secondary">Your cart is empty</p>
         </div>
 
         <div *ngFor="let item of cartService.items" class="mb-6">
           <div class="flex gap-4">
-            <img 
-              [src]="item.image" 
+            <img
+              [src]="item.image"
               class="w-24 h-24 object-cover rounded-lg border border-border"
               alt="Product image"
-            >
+            />
             <div class="flex-1">
               <h3 class="font-semibold text-lg mb-1">{{ item.name }}</h3>
-              <p class="text-primary font-medium mb-2">{{ item.price | currency }}</p>
+              <p class="text-primary font-medium mb-2">
+                {{ item.price | currency }}
+              </p>
               <div class="flex items-center gap-3">
-                <button 
-                  pButton 
-                  icon="pi pi-minus" 
+                <button
+                  pButton
+                  icon="pi pi-minus"
                   [ngClass]="{
                     'p-button-text text-primary !w-8 !h-8': true
                   }"
                   (click)="cartService.updateQuantity(item, -1)"
                 ></button>
                 <span class="w-8 text-center">{{ item.quantity }}</span>
-                <button 
-                  pButton 
-                  icon="pi pi-plus" 
+                <button
+                  pButton
+                  icon="pi pi-plus"
                   [ngClass]="{
                     'p-button-text text-primary !w-8 !h-8': true
                   }"
@@ -171,15 +172,17 @@
         <div class="space-y-4 mb-6">
           <div class="flex justify-between">
             <span>Subtotal:</span>
-            <span class="font-semibold">{{ cartService.getTotal() | currency }}</span>
+            <span class="font-semibold">{{
+              cartService.getTotal() | currency
+            }}</span>
           </div>
           <p class="text-sm text-secondary">
             Shipping, taxes, and discounts will be calculated at checkout.
           </p>
         </div>
-        <button 
-          pButton 
-          label="Checkout" 
+        <button
+          pButton
+          label="Checkout"
           [ngClass]="{
             'w-full p-button-primary bg-primary border-primary text-white': true
           }"
