@@ -25,8 +25,9 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(req);
   }
 
-  // Skip token checks for refresh token endpoint to avoid infinite loops
-  if (req.url.includes('/refresh-token')) {
+  // Skip token checks for auth endpoints to avoid loops
+  const authEndpoints = ['/api/users/login', '/api/users/register', '/api/users/refresh-token'];
+  if (authEndpoints.some(endpoint => req.url.includes(endpoint))) {
     return next(req);
   }
 
@@ -81,7 +82,7 @@ export const authInterceptor: HttpInterceptorFn = (
         if (error instanceof HttpErrorResponse && error.status === 401) {
           // Token expired or invalid, logout the user
           authService.logout();
-          router.navigate(['/login'], {
+          router.navigate(['/auth/login'], {
             queryParams: { unauthorized: 'true' },
           });
         }
