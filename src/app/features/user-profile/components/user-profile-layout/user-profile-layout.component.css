@@ -16,15 +16,13 @@
   font-weight: 600;
 }
 
-.navbar li:hover {
-  background-color: var(--color-primary);
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
+li:hover{
+  background-color: var(--color-link-hover);
 }
 
 .font-bold {
   font-weight: 700;
   color: var(--color-primary);
 }
+
+
