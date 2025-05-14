@@ -98,13 +98,7 @@ export class AuthService {
    * @returns Observable with the auth response
    */
   register(userData: RegisterRequest): Observable<ApiResponse> {
-    return this.api.post<ApiResponse>('users/register', userData).pipe(
-      catchError((error) => {
-        return throwError(
-          () => new Error(error.message || 'Registration failed')
-        );
-      })
-    );
+    return this.api.post<ApiResponse>('users/register', userData);
   }
 
   /**
@@ -154,13 +148,13 @@ export class AuthService {
     // Constants
     const BUFFER_TIME = 30000; // 30 seconds buffer for network delays
     const MAX_TIMEOUT = 2147483647; // Max setTimeout value (~24.8 days)
-    
+
     // Calculate the ideal delay (with buffer for network delays)
     const idealDelay = expiresIn - BUFFER_TIME;
-    
+
     // Ensure delay is within JavaScript's setTimeout limits and non-negative
     const safeDelay = Math.min(Math.max(0, idealDelay), MAX_TIMEOUT);
-    
+
     this.tokenExpirationTimer = setTimeout(() => {
       // If we reached the maximum timeout but the token isn't expired yet,
       // we need to set up another timer for the remaining time
