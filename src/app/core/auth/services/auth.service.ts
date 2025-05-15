@@ -50,6 +50,16 @@ export class AuthService {
    * @returns boolean indicating if the user is authenticated with a valid token
    */
   private checkInitialAuthState(): boolean {
+    // For initial state, use same verification logic but don't update signals
+    return this.verifyTokenValidity(false);
+  }
+
+  /**
+   * Verifies if the token exists and is valid
+   * @param updateSignals Whether to update the authentication signals based on verification results
+   * @returns boolean indicating if the token is valid
+   */
+  private verifyTokenValidity(updateSignals: boolean = false): boolean {
     if (!isPlatformBrowser(this.platformId)) {
       return false; // Not authenticated on server-side
     }
@@ -67,7 +77,25 @@ export class AuthService {
       if (isExpired) {
         localStorage.removeItem(this.TOKEN_KEY);
         localStorage.removeItem(this.USER_KEY);
+
+        if (updateSignals) {
+          this.isAuthenticatedSignal.set(false);
+          this.currentUserSignal.set(null);
+        }
+
         return false;
+      }
+
+      // If we need to update signals and the token is valid
+      if (updateSignals && !this.isAuthenticatedSignal()) {
+        this.isAuthenticatedSignal.set(true);
+        // Load user if not already loaded
+        if (!this.currentUserSignal()) {
+          const userData = localStorage.getItem(this.USER_KEY);
+          if (userData) {
+            this.currentUserSignal.set(JSON.parse(userData));
+          }
+        }
       }
 
       return true;
@@ -75,6 +103,12 @@ export class AuthService {
       // If token cannot be decoded, consider it invalid
       localStorage.removeItem(this.TOKEN_KEY);
       localStorage.removeItem(this.USER_KEY);
+
+      if (updateSignals) {
+        this.isAuthenticatedSignal.set(false);
+        this.currentUserSignal.set(null);
+      }
+
       return false;
     }
   }
@@ -477,8 +511,18 @@ export class AuthService {
    * auto logout works even if the app was refreshed
    */
   initAutoLogout(): void {
-    if (this.isAuthenticated()) {
+    if (this.checkIsAuthenticated()) {
       this.setAutoLogoutTimer();
     }
+  }
+
+  /**
+   * Check if the user is currently authenticated by verifying the token
+   * This method performs a fresh check instead of just using the signal value
+   * @returns boolean indicating if the user is currently authenticated with a valid token
+   */
+  checkIsAuthenticated(): boolean {
+    // Use the shared token verification logic, but with signal updates enabled
+    return this.verifyTokenValidity(true);
   }
 }
