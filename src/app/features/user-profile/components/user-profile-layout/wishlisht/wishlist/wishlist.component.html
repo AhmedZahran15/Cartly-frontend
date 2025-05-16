@@ -1,13 +1,13 @@
-<div class="p-4 max-w-7xl mx-auto bg-background border border-border">
-  <h2 class="text-2xl font-semibold text-primary mb-5">My Wishlist</h2>
+<div class="p-6 bg-background  rounded-lg shadow max-w-8xl mx-auto space-y-7 border border-border">
+  <h2 class="text-2xl font-semibold text-accent mb-5">My Wishlist</h2>
 
-  <div *ngIf="wishlist?.items?.length === 0" class="p-4 text-left text-accent text-500">
+  <div *ngIf="wishlist?.items?.length === 0" class=" text-accent text-500">
     Your wishlist is empty.
   </div>
  
-  <div class="p-grid  ">
+  <div class="p-grid ">
     <div *ngFor="let item of wishlist?.items" class="p-col-12 ">
-      <p-card class="mb-3 bg-background shadow-sm ">
+      <p-card class=" my_card">
         <div class="flex flex-col md:flex-row items-start md:items-center gap-4 ">
           
           <!-- Image on the left -->
