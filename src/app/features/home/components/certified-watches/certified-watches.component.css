@@ -1,0 +1,13 @@
+@keyframes float {
+    0%, 100% { transform: translateY(var(--start)); }
+    50% { transform: translateY(calc(var(--start) - 40px)); }
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+  }
