@@ -1,71 +1,42 @@
-import { Component} from '@angular/core';
-import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { CarouselModule, Carousel } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-best-sellers',
-  imports: [ProductCardComponent ,CommonModule,PaginationComponent],
-  templateUrl: './best-sellers.component.html'
+  imports: [CommonModule, CarouselModule, TagModule, ButtonModule],
+  templateUrl: './best-sellers.component.html',
+  styleUrls: ['./best-sellers.component.css']
 })
 export class BestSellersComponent {
-  products = [
-    {
-      name: 'Stainless Steel Doil',
-      price: 3000,
-      image: '/watch1.png'
-    },
-    {
-      name: 'Golden Dial Watch',
-      price: 1950,
-      image: '/watch2.png'
-    },
-    {
-      name: 'Analog Strap Watch',
-      price: 4500,
-      image: '/watch1.png'
-    },
-    {
-      name: 'Golden Women Watch',
-      price: 2000,
-      image: '/watch2.png'
-    },
-    {
-      name: 'Golden Women Watch',
-      price: 2000,
-      image: '/watch1.png'
-    },
-    {
-      name: 'Golden Women Watch',
-      price: 2000,
-      image: '/watch2.png'
-    },
-    {
-      name: 'Golden Women Watch',
-      price: 2000,
-      image: '/watch1.png'
-    }
+  @Input() products: any[] = [];
+  @ViewChild('carousel') carousel!: Carousel;
+
+  responsiveOptions = [
+    { breakpoint: '1400px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '1199px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '767px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '575px', numVisible: 1, numScroll: 1 }
   ];
-   itemsPerPage = 4;
-  currentPage = 0;
 
-  get totalPages(): number {
-    return Math.ceil(this.products.length / this.itemsPerPage);
+  getSeverity(status: string) {
+    switch (status) {
+      case 'INSTOCK': return 'success';
+      case 'LOWSTOCK': return 'warning';
+      case 'OUTOFSTOCK': return 'danger';
+      default: return 'info';
+    }
   }
 
-  get visibleProducts() {
-    const start = this.currentPage * this.itemsPerPage;
-    return this.products.slice(start, start + this.itemsPerPage);
+  isFirstPage(): boolean {
+    return this.carousel?.page === 0;
   }
 
-  onPageChange(newPage: number) {
-    this.currentPage = newPage;
-  }
-
-  // chunk array for reference
-  chunkArray(arr: any[], size: number): any[][] {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-      arr.slice(i * size, i * size + size)
-    );
+  isLastPage(): boolean {
+    if (!this.carousel?.totalDots) return true;
+    const totalPages = Number(this.carousel.totalDots);
+    return this.carousel.page === totalPages - 1;
   }
 }
