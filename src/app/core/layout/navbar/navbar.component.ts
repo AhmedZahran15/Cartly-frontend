@@ -21,7 +21,7 @@ export class NavbarComponent {
 
   isAuthenticated = false;
   cartVisible = false;
-   menuVisible = false;
+  menuVisible = false;
   profileMenuItems: MenuItem[] = [];
   cartItems = 0;
 

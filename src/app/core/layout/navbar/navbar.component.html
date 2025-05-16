@@ -5,20 +5,19 @@
       <a routerLink="/" class="text-2xl font-bold text-primary">Cartly</a>
     </h1>
 
-    <!-- Hamburger Menu (Mobile) -->
-    <button
-      class="lg:hidden text-primary text-2xl"
-      (click)="menuVisible = !menuVisible"
-      aria-label="Toggle Menu"
-    >
-      <i class="pi pi-bars"></i>
-    </button>
+    <!-- Mobile Header -->
+    <div class="lg:hidden">
+      <button
+        class="text-primary text-2xl"
+        (click)="menuVisible = !menuVisible"
+        aria-label="Toggle Menu"
+      >
+        <i class="pi pi-bars"></i>
+      </button>
+    </div>
 
-    <!-- Navigation Links -->
-    <ul
-      class="hidden lg:flex flex-1 justify-center space-x-8 list-none p-0 m-0 text-xl"
-      [ngClass]="{ block: menuVisible, hidden: !menuVisible }"
-    >
+    <!-- Desktop Navigation -->
+    <ul class="hidden lg:flex flex-1 justify-center space-x-8 list-none p-0 m-0 text-xl">
       <li *ngFor="let link of links" class="relative group">
         <a
           [routerLink]="link.path"
@@ -26,12 +25,31 @@
           pRipple
         >
           {{ link.label }}
-          <div
-            class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"
-          ></div>
+          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></div>
         </a>
       </li>
     </ul>
+
+    <!-- Desktop Icons -->
+    <div class="hidden lg:flex items-center space-x-4">
+      <i
+        class="pi pi-user text-on-background hover:text-primary cursor-pointer"
+        (click)="profileMenu.toggle($event)"
+      ></i>
+      <p-menu #profileMenu [popup]="true" [model]="profileMenuItems"></p-menu>
+
+      <i
+        class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer relative text-lg"
+        (click)="cartVisible = true"
+      >
+        <span
+          *ngIf="cartService.itemCount > 0"
+          class="absolute -top-1 -right-1 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
+        >
+          {{ cartService.itemCount }}
+        </span>
+      </i>
+    </div>
 
     <!-- Mobile Menu -->
     <div
@@ -58,32 +76,29 @@
             {{ link.label }}
           </a>
         </li>
+        <li>
+          <a
+            class="hover:text-primary transition-colors cursor-pointer"
+            (click)="profileMenu.toggle($event); menuVisible = false"
+          >
+            Profile
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-primary transition-colors cursor-pointer relative"
+            (click)="cartVisible = true; menuVisible = false"
+          >
+            Cart
+            <span
+              *ngIf="cartService.itemCount > 0"
+              class="absolute top-0 -right-0 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
+            >
+              {{ cartService.itemCount }}
+            </span>
+          </a>
+        </li>
       </ul>
-    </div>
-
-    <!-- Icons Section -->
-    <div class="hidden lg:flex items-center space-x-4">
-      <!-- Profile -->
-      <i
-        class="pi pi-user text-on-background hover:text-primary cursor-pointer"
-        (click)="profileMenu.toggle($event)"
-        tooltipPosition="bottom"
-      ></i>
-      <p-menu #profileMenu [popup]="true" [model]="profileMenuItems"></p-menu>
-
-      <!-- Cart -->
-      <i
-        class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer relative text-lg"
-        (click)="cartVisible = true"
-        tooltipPosition="bottom"
-      >
-        <span
-          *ngIf="cartService.itemCount > 0"
-          class="absolute -top-1 -right-1 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
-        >
-          {{ cartService.itemCount }}
-        </span>
-      </i>
     </div>
   </div>
 
@@ -92,38 +107,36 @@
     [(visible)]="cartVisible"
     position="right"
     [showCloseIcon]="false"
-    [ngClass]="{
-      'w-[400px]': true,
-      'bg-surface': true,
-      'text-on-surface': true,
-      'border-l border-border': true,
-      relative: true
+    [style]="{
+      width: 'min(100vw, 400px)',
+      'background-color': 'var(--color-surface)',
+      color: 'var(--color-on-surface)'
     }"
   >
-    <!-- Close Button -->
+    <!-- Close Arrow -->
     <button
       pButton
-      icon="pi pi-times"
+      icon="pi pi-arrow-right"
+      (click)="cartVisible = false"
+      class="absolute top-1 left-2"
       [ngClass]="{
-        'absolute top-0 -left-10': true,
+        'p-button-rounded': true,
         'p-button-text': true,
-        'bg-primary text-white': true,
-        'hover:bg-secondary hover:text-primary': true,
+        'text-primary': true,
+        'hover:text-secondary': true,
+        '!bg-transparent': true,
         '!shadow-none': true,
         'border-none': true
       }"
-      (click)="cartVisible = false"
+      aria-label="Close Cart"
     ></button>
 
-    <!-- Sidebar Content -->
     <div class="h-full flex flex-col">
-      <!-- Header -->
-      <div class="border-b border-border">
-        <h2 class="text-2xl font-bold text-on-background">Your Cart</h2>
+      <div class="border-b border-border pb-4">
+        <h2 class="text-2xl font-bold text-on-background mt-8 px-4">Your Cart</h2>
       </div>
 
-      <!-- Items List -->
-      <div class="flex-1 overflow-y-auto p-6">
+      <div class="flex-1 overflow-y-auto p-4">
         <div
           *ngIf="cartService.items.length === 0"
           class="h-full flex items-center justify-center"
@@ -131,34 +144,29 @@
           <p class="text-secondary">Your cart is empty</p>
         </div>
 
-        <div *ngFor="let item of cartService.items" class="mb-6">
-          <div class="flex gap-4">
+        <div *ngFor="let item of cartService.items" class="mb-4">
+          <div class="flex gap-4 p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg">
             <img
-              [src]="item.image"
-              class="w-24 h-24 object-cover rounded-lg border border-border"
+              [src]="item.imageUrl"
+              class="w-20 h-20 object-cover rounded-lg border border-border"
               alt="Product image"
             />
             <div class="flex-1">
-              <h3 class="font-semibold text-lg mb-1">{{ item.name }}</h3>
-              <p class="text-primary font-medium mb-2">
-                {{ item.price | currency }}
-              </p>
+              <h3 class="font-semibold text-lg mb-1 text-on-surface">{{ item.name }}</h3>
+              <p class="text-primary font-medium mb-2">Rs. {{ item.price }}</p>
               <div class="flex items-center gap-3">
                 <button
                   pButton
                   icon="pi pi-minus"
-                  [ngClass]="{
-                    'p-button-text text-primary !w-8 !h-8': true
-                  }"
+                  class="!w-8 !h-8 !p-0"
+                  [disabled]="item.quantity === 1"
                   (click)="cartService.updateQuantity(item, -1)"
                 ></button>
-                <span class="w-8 text-center">{{ item.quantity }}</span>
+                <span class="w-8 text-center text-on-surface">{{ item.quantity }}</span>
                 <button
                   pButton
                   icon="pi pi-plus"
-                  [ngClass]="{
-                    'p-button-text text-primary !w-8 !h-8': true
-                  }"
+                  class="!w-8 !h-8 !p-0"
                   (click)="cartService.updateQuantity(item, 1)"
                 ></button>
               </div>
@@ -167,25 +175,24 @@
         </div>
       </div>
 
-      <!-- Checkout Section -->
-      <div class="p-6 border-t border-border">
-        <div class="space-y-4 mb-6">
-          <div class="flex justify-between">
+      <div class="p-4 border-t border-border">
+        <div class="space-y-4 mb-4">
+          <div class="flex justify-between text-on-surface">
             <span>Subtotal:</span>
-            <span class="font-semibold">{{
-              cartService.getTotal() | currency
-            }}</span>
+            <span class="font-semibold">Rs. {{ cartService.getTotal() }}</span>
           </div>
           <p class="text-sm text-secondary">
-            Shipping, taxes, and discounts will be calculated at checkout.
+            Shipping, taxes, and discounts calculated at checkout
           </p>
         </div>
         <button
           pButton
           label="Checkout"
-          [ngClass]="{
-            'w-full p-button-primary bg-primary border-primary text-white': true
-          }"
+          [disabled]="cartService.items.length === 0"
+          class="w-full
+                 !bg-primary !border-primary !text-on-surface
+                 hover:!bg-primary/90
+                 disabled:!bg-surface disabled:!border-border disabled:!text-secondary disabled:opacity-50 disabled:cursor-not-allowed"
         ></button>
       </div>
     </div>
