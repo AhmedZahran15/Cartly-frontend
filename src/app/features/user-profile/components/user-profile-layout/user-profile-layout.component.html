@@ -14,7 +14,7 @@
       <section class="mb-6">
         <div class="flex items-center"> 
           <img src="assets/images/default-avatar.png" *ngIf="user.image == null" alt="User Avatar"
-            class="w-14 h-14 rounded-full border-2 border-border" />
+            class="w-14 h-14 rounded-full border-2 border-gray-300" />
           <img src="{{user.image}}" *ngIf="user.image != null" alt="User Avatar"
             class="w-14 h-14 rounded-full border-2 border-gray-300" /> 
           <div class="ml-3 "> 
@@ -28,37 +28,37 @@
 
       <!-- Nav Links -->
       <ul class="space-y-2">
-        <li class="flex items-center p-2 rounded-lg transition" routerLinkActive="font-bold">
+        <li class="flex items-center p-2 rounded-lg transition cursor-pointer" routerLink="/profile/orders" routerLinkActive="font-bold">
          
-          <a routerLink="/profile/orders" class="text-accent ">Orders</a>
+          <a  class="text-accent ">Orders</a>
         </li>
-        <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/wishlist" class="text-accent ">Wishlist</a>
+        <li class="flex items-center p-2 rounded-lg  transition cursor-pointer" routerLink="/profile/wishlist" routerLinkActive="font-bold">
+          <a  class="text-accent ">Wishlist</a>
         </li>
-        <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/returns" class="text-accent ">Returns</a>
+        <li class="flex items-center p-2 rounded-lg  transition cursor-pointer" routerLink="/profile/returns" routerLinkActive="font-bold">
+          <a  class="text-accent ">Returns</a>
         </li>
       </ul>
 
       <hr class="border-accent my-4" />
 
       <ul class="space-y-2">
-        <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/account" class="text-accent ">Account</a>
+        <li class="flex items-center p-2 rounded-lg  transition cursor-pointer " routerLink="/profile/account" routerLinkActive="font-bold">
+          <a  class="text-accent ">Account</a>
         </li>
-        <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/address" class="text-accent ">Address</a>
+        <li class="flex items-center p-2 rounded-lg  transition cursor-pointer" routerLink="/profile/address" routerLinkActive="font-bold">
+          <a  class="text-accent ">Address</a>
         </li>
-        <li class="flex items-center p-2 rounded-lg  transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/payment" class="text-accent ">Payment</a>
+        <li class="flex items-center p-2 rounded-lg  transition cursor-pointer" routerLink="/profile/payment" routerLinkActive="font-bold">
+          <a  class="text-accent ">Payment</a>
         </li>
       </ul>
 
       <hr class="border-accent my-4" />
 
       <ul>
-        <li class="flex items-center p-2 rounded-lg hover:bg-red-100 transition" routerLinkActive="font-bold">
-          <a routerLink="/profile/logout" class="text-red-600 hover:underline">Sign Out</a>
+        <li class="flex items-center p-2 rounded-lg hover:bg-red-100 transition cursor-pointer" routerLink="/profile/logout" routerLinkActive="font-bold">
+          <a  class="text-red-600 hover:underline">Sign Out</a>
         </li>
       </ul>
     </nav>
