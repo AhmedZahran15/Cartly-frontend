@@ -4,10 +4,19 @@ import { BestSellersComponent } from '../../components/best-sellers/best-sellers
 import { HeroSectionComponent } from './../../components/hero-section/hero-section.component';
 import { GenderCategoriesComponent } from '../../components/gender-categories/gender-categories.component';
 import { FeaturesHighlightComponent } from '../../components/features-highlight/features-highlight.component';
+import { QuoteComponent } from '../../components/quote/quote.component';
+import { CertifiedWatchesComponent } from '../../components/certified-watches/certified-watches.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [BestSellersComponent ,HeroSectionComponent,GenderCategoriesComponent,FeaturesHighlightComponent],
+  imports: [
+    BestSellersComponent,
+    HeroSectionComponent,
+    GenderCategoriesComponent,
+    FeaturesHighlightComponent,
+    QuoteComponent,
+    CertifiedWatchesComponent,
+  ],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css'],
 })
