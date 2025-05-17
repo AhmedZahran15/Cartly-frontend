@@ -1,57 +1,74 @@
-<div class="p-6 bg-white  rounded-lg shadow p-8 max-w-8xl mx-auto space-y-7">
-  <h2 class="text-2xl font-semibold mb-4">My Wishlist</h2>
+<div class="p-6 bg-background  rounded-lg shadow max-w-8xl mx-auto space-y-7 border border-border">
+  <h2 class="text-2xl font-semibold text-accent mb-5">My Wishlist</h2>
 
-  <div *ngIf="wishlist?.items?.length === 0" class="text-gray-500  py-6">
+  <div *ngIf="wishlist?.items?.length === 0" class=" text-accent text-500">
     Your wishlist is empty.
   </div>
+ 
+  <div class="p-grid ">
+    <div *ngFor="let item of wishlist?.items" class="p-col-12 ">
+      <p-card class=" my_card">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-4 ">
+          
+          <!-- Image on the left -->
+          <img
+            [src]="item.products.images[2]"
+            alt="Product Image"
+            class="w-40 h-40 object-cover rounded shadow-md"
+          />
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 md:px-6">
-    <div
-      *ngFor="let item of wishlist?.items"
-      class="bg-white border shadow-sm hover:shadow-md transition duration-300 overflow-hidden"
-    >
-      <img
-        [src]="item.products.images[2]"
-        alt="Product Image"
-        class="w-full h-36 object-cover"
-      />
+          <!-- Content on the right -->
+          <div class="flex-grow space-y-2">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-900 truncate">
+                {{ item.products.name }}
+              </h3>
+              <!-- Remove (Heart) -->
+              <button
+                pButton
+                icon="pi pi-heart-fill"
+                class="p-button-rounded p-button-text p-button-danger"
+                pTooltip="Remove from wishlist"
+                (click)="removeFromWishlist(item.products._id)"
+              ></button>
+            </div>
 
-      <!-- Content -->
-      <div class="p-3 flex flex-col gap-2">
-        <div>
-          <h2 class="text-base font-semibold text-gray-800 truncate">
-            {{ item.products.name }}
-          </h2>
-          <p class="text-xs text-gray-500">
-            Luminosity: {{ item.products.specifications.Luminosity }}
-          </p>
-          <p class="text-xs text-gray-500">Gender: {{ item.products.gender }}</p>
-          <p class="text-gray-600 text-xs line-clamp-2 mt-1">
-            {{ item.products.description }}
-          </p>
-        </div>
+            <p class="text-sm text-600">
+              Luminosity: {{ item.products.specifications.Luminosity }}
+            </p>
+            <p class="text-sm text-600">Gender: {{ item.products.gender }}</p>
+            <p class="text-sm text-700">{{ item.products.description }}</p>
 
-        <!-- Bottom actions -->
-        <div class="flex justify-between items-center">
-          <!-- Price -->
-          <div *ngIf="item.products.discountPrice == null">
-            <span class="text-green-600 font-semibold text-sm">${{ item.products.price }}</span>
+            <!-- Price -->
+            <div>
+              <span
+                *ngIf="!item.products.discountPrice"
+                class="text-green-600 font-bold text-sm"
+              >
+                ${{ item.products.price }}
+              </span>
+
+              <div *ngIf="item.products.discountPrice">
+                <span class="text-green-600 font-bold text-sm">
+                  ${{ item.products.discountPrice }}
+                </span>
+                <span class="text-400 text-xs line-through ml-2">
+                  ${{ item.products.price }}
+                </span>
+              </div>
+            </div>
+ 
+            <!-- Move to cart button -->
+            <button
+              pButton
+              label="Move to Cart"
+              icon="pi pi-shopping-cart"
+              class="p-button-sm p-button-outlined p-button-success mt-2"
+              
+            ></button>
           </div>
-
-          <div *ngIf="item.products.discountPrice != null">
-            <span class="text-green-600 font-semibold text-sm">${{ item.products.discountPrice }}</span>
-            <span class="text-gray-400 line-through ml-1 text-xs">${{ item.products.price }}</span>
-          </div>
-
-          <!-- Remove Button -->
-          <button
-            (click)="removeFromWishlist(item.products._id)"
-            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-          >
-            Remove
-          </button>
         </div>
-      </div>
+      </p-card>
     </div>
   </div>
 </div>

@@ -2,13 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../../../services/wishlist/wishlist.service';
 import { CommonModule } from '@angular/common';
 import { Wishlist } from '../wishlist';
+import { DataViewModule } from 'primeng/dataview';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { RippleModule } from 'primeng/ripple';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [ CommonModule],
+  imports: [ CommonModule, CardModule, ButtonModule, DividerModule, RippleModule, InputTextModule ],
+  providers: [MessageService],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
-})
+}) 
+
 export class WishlistComponent implements OnInit{
 wishlist: Wishlist = {
     _id: '',
@@ -19,7 +28,7 @@ wishlist: Wishlist = {
     __v: 0
   };
 
-constructor(private wishlistService: WishlistService) { }
+constructor(private wishlistService: WishlistService, private messageService: MessageService) { }
 ngOnInit() {
   this.getWishlist();
 }
@@ -36,12 +45,18 @@ getWishlist() {
     complete: () => console.log('Wishlist loaded successfully')
   });
 }
- 
+
 // remove prouduct from the wishlist
 removeFromWishlist(id: string) {
   this.wishlistService.removeFromWishlist(id).subscribe({
       next: () => {
         this.wishlist.items = this.wishlist.items.filter(item => item._id !== id);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `wishlist removed`
+        });
+        this.getWishlist(); // Refresh the wishlist after removing an item
       },
       error: (err) => console.error('Failed to remove item:', err)
     });

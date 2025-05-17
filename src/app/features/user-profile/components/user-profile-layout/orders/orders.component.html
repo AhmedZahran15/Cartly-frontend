@@ -1,29 +1,33 @@
-<div class="p-6 bg-white  rounded-lg shadow p-8 max-w-8xl mx-auto space-y-7">
-  <h2 class="text-2xl font-semibold mb-4">My Orders</h2>
+<div class="p-6 bg-background  rounded-lg shadow max-w-8xl mx-auto space-y-7 border border-border">
+  <h2 class="text-2xl font-semibold mb-4 shadow-shadow text-accent">My Orders</h2>
 
-  <div *ngIf="orders.length === 0" class="text-gray-500">
+  <div *ngIf="orders.length === 0" class="text-accent">
     You have no orders yet.
   </div>
 
-  <div *ngFor="let order of orders" class="bg-white shadow rounded-lg p-4 mb-4 border border-gray-200">
+  <div *ngFor="let order of orders" class="bg-background shadow-shadow rounded-lg p-4 mb-4 border border-border">
     <div class="flex justify-between items-center mb-2">
       <div>
-        <p class="font-semibold text-lg">Order #: {{ order._id }}</p>
-        <p class="text-sm text-gray-500">Status: {{ order.orderStatus }}</p>
-        <p class="text-sm text-gray-500">Date: {{ order.createdAt | date:'mediumDate' }}</p>
+        <p class="font-semibold text-lg ">Order #: {{ order._id }}</p>
+        <p class="text-sm text-accent">Status: {{ order.orderStatus }}</p>
+        <p class="text-sm text-accent">Date: {{ order.createdAt | date:'mediumDate' }}</p>
       </div>
-      <div>
-        <span class="text-green-600 font-bold text-lg">${{ order.totalAmount?.toFixed(2) }}</span>
-      </div>
+      
     </div>
- 
+   
     <div class="mt-2">
       <p class="font-medium">Items:</p>
       <ul class="pl-4 list-disc">
-        <li *ngFor="let item of order.items">
-          {{ item.productSnapshot?.name || 'Unknown Product' }} - Quantity: {{ item.quantity }}
-        </li>
+      <li *ngFor="let item of order.items" class="flex items-center space-x-4">
+        <img src="{{item.product?.images[1]}}" alt="no image" class="w-12 h-12 object-cover rounded" />
+        <span class="font-medium">{{ item.productSnapshot?.name || 'Unknown Product' }}</span>
+        <span class="text-accent">- Quantity: {{ item.quantity }}</span>
+      </li>
       </ul>
     </div>
+
+    <div class="mt-4 text-right">
+       <span class="font-bold text-lg">Total: </span> <span class="text-green-600 font-bold text-lg">${{ order.totalAmount?.toFixed(2) }}</span>
+      </div>
   </div>
-</div>
+</div> 

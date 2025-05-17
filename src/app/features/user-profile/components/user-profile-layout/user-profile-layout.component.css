@@ -18,10 +18,11 @@
 
 li:hover{
   background-color: var(--color-link-hover);
+  font-weight: 700;
 }
 
 .font-bold {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--color-primary);
 }
 
