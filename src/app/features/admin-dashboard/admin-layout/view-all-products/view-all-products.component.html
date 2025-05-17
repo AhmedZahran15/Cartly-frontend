@@ -1,0 +1,61 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  <div
+    *ngFor="let product of products" 
+    class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 flex flex-col"
+  >
+    <img
+      [src]="product.images[0]"
+      alt="{{ product.name }}"
+      class="w-full h-60 object-cover"
+    />
+    <div class="p-4 flex flex-col flex-grow  ">
+      <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
+      <p class="text-gray-500 mb-1">{{ product.brand.name }} • {{ product.type.name }}</p>
+      <p class="text-gray-700 text-sm mb-2">
+        {{ product.description | slice:0:80 }}...
+      </p>
+
+      <div class="mt-auto ">
+        <div class="flex items-center justify-between mt-4">
+          <div class="text-lg font-bold text-emerald-600">
+           $ {{ product.discountPrice || product.price }} 
+            <span
+              *ngIf="product.discountPrice"
+              class="line-through text-sm text-gray-400 ml-2"
+            >
+              $ {{ product.price }}
+            </span>
+          </div>
+          <div
+            class="rounded-full px-3 py-1 text-xs font-semibold"
+            [ngClass]="{
+              'bg-green-100 text-green-600': product.stock > 10,
+              'bg-yellow-100 text-yellow-700': product.stock <= 10 && product.stock > 0,
+              'bg-red-100 text-red-600': product.stock === 0
+            }"
+          >
+            {{ product.stock > 0 ? product.stock + ' in stock' : 'Out of stock' }}
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-4">
+          <button
+            class="px-4 py-1.5 text-sm font-medium rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition cursor-pointer"
+            (click)="editProduct(product._id,product)" 
+          >
+            Update
+          </button>
+          <button
+            class="px-4 py-1.5 text-sm font-medium rounded-xl bg-red-500 text-white hover:bg-red-600 transition cursor-pointer"
+            (click)="confirmDelete(product._id)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

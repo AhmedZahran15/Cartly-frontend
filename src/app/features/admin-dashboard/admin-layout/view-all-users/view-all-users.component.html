@@ -1,0 +1,35 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<p-table [value]="users" responsiveLayout="stack" [tableStyle]="{ 'min-width': '50rem' }" class="p-datatable-sm rounded-lg shadow-md bg-background p-6 dataTable">
+  <ng-template pTemplate="header">
+    <tr >
+      <th class="text-secondary bg-background border border-border ">First Name</th>
+      <th class="text-secondary bg-background border border-border">Last Name</th>
+      <th class="text-secondary bg-background border border-border">Email</th>
+      <th class="text-secondary bg-background border border-border" >Role</th>
+      <th class="text-secondary bg-background border border-border">Status</th> 
+      <th class="text-secondary bg-background border border-border">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user >
+    <tr>
+      <td  class="text-accent bg-background border border-border">{{ user.firstName }}</td>
+      <td class="text-accent bg-background border border-border">{{ user.lastName }}</td>
+      <td class="text-accent bg-background border border-border">{{ user.email }}</td>
+      <td class="text-accent bg-background border border-border">{{ user.role }}</td>
+      <td class="text-accent bg-background border border-border">
+        <span [ngClass]="{
+            'text-green-600 font-semibold': user.isVerified,
+            'text-red-500 font-semibold': !user.isVerified
+        }">
+            {{ user.isVerified ? 'active' : 'inactive' }}
+        </span>
+        </td>
+      <td class="space-x-2 bg-background border border-border">
+        <button (click)="confirmDelete(user.id)" class="p-button p-button-sm p-button-danger" >
+          <i class="pi pi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
