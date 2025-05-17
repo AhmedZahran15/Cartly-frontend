@@ -58,23 +58,23 @@
           <input type="date" class="w-full p-3 rounded border border-border"
                  formControlName="birthday" placeholder="Enter your Birthday">
           <p class="text-xs text-gprimary mt-1">🎉 Get offers on your special day!</p>
-          <div *ngIf="profileForm.get('birthday')?.invalid && (profileForm.get('birthday')?.touched || profileForm.get('birthday')?.dirty)" class="text-red-500 text-sm mt-1">
-            <div *ngIf="profileForm.get('birthday')?.errors?.['required']">Birthday is required.</div>
+          <div *ngIf="profileForm.get('dateOfBirth')?.invalid && (profileForm.get('dateOfBirth')?.touched || profileForm.get('dateOfBirth')?.dirty)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="profileForm.get('dateOfBirth')?.errors?.['required']">Birthday is required.</div>
           </div>
         </div>
 
         <div class="col-span-2 flex items-center">
           <label class="mr-4">Gender:</label>
           <label class="mr-4 flex items-center space-x-2">
-            <input type="radio" formControlName="gender" value="Male">
+            <input type="radio" formControlName="gender" value="Male" [checked]="profileForm.get('gender')?.value === 'male'">
             <span>Male</span>
           </label>
           <label class="flex items-center space-x-2">
-            <input type="radio" formControlName="gender" value="Female">
+            <input type="radio" formControlName="gender" value="Female" [checked]="profileForm.get('gender')?.value === 'female'">
             <span>Female</span>
           </label>
         </div>
-      </div>
+      </div> 
       <div *ngIf="profileForm.get('gender')?.invalid && (profileForm.get('gender')?.touched || profileForm.get('gender')?.dirty)" class="text-red-500 text-sm mt-1">
         <div *ngIf="profileForm.get('gender')?.errors?.['required']">Gender is required.</div>
       </div>

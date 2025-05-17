@@ -49,8 +49,8 @@ export class UserDataComponent implements OnInit {
       firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
-      // gender: new FormControl('', Validators.required),
-      // birthday: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
     });
   }
 
@@ -61,8 +61,8 @@ export class UserDataComponent implements OnInit {
         firstName: this.user.firstName || '',
         lastName: this.user.lastName || '',
         phone: this.user.phone || '',
-        // gender: this.user.gender || '',
-        // birthday: this.user.birthday || '',
+        gender: this.user.gender || '',
+        dateOfBirth: this.user.dateOfBirth || '',
       });
     }
   }
@@ -74,11 +74,11 @@ export class UserDataComponent implements OnInit {
         firstName: this.profileForm.value.firstName,
         lastName: this.profileForm.value.lastName,
         phone: this.profileForm.value.phone,
-        // gender: this.profileForm.value.gender,
-        // birthday: this.profileForm.value.birthday,
+        gender: this.profileForm.value.gender.toLowerCase(),
+        dateOfBirth: this.profileForm.value.dateOfBirth,
       };
       console.log('Updated user data:', updatedUser);
-      this.updateUserProfile(this.user._id, updatedUser);
+      this.updateUserProfile(this.user.id, updatedUser);
     }else{
       console.log('Form is invalid');
     }
