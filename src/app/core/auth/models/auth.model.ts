@@ -6,6 +6,8 @@ export interface RegisterRequest {
   password: string;
   confirmPassword: string;
   phone: string;
+  dateOfBirth: Date;
+  gender: 'male' | 'female';
 }
 
 // Login request payload

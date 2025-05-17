@@ -145,7 +145,7 @@ export class RegisterComponent {
       email: this.registerForm.value.email as string,
       phone: this.registerForm.value.phone as string,
       dateOfBirth: this.registerForm.value.dateOfBirth as Date,
-      gender: this.registerForm.value.gender as string,
+      gender: this.registerForm.value.gender as 'male' | 'female',
       password: this.registerForm.value.password as string,
       confirmPassword: this.registerForm.value.confirmPassword as string,
     };
