@@ -16,6 +16,8 @@ import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { DatePickerModule } from 'primeng/datepicker';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { AuthService } from '@core/auth/services/auth.service';
 import { ValidationError } from '@core/auth/models/error.model';
 
@@ -31,6 +33,8 @@ import { ValidationError } from '@core/auth/models/error.model';
     DividerModule,
     MessageModule,
     ToastModule,
+    DatePickerModule,
+    SelectButtonModule,
   ],
   providers: [MessageService],
   templateUrl: './register.component.html',
@@ -41,6 +45,11 @@ export class RegisterComponent {
   errorMessage: string | null = null;
   registerForm: FormGroup;
   serverErrors: { [key: string]: string } = {};
+  genderOptions = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+  ];
+  maxDate: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +69,8 @@ export class RegisterComponent {
             Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10,14}$/),
           ],
         ],
+        dateOfBirth: [null, [Validators.required]],
+        gender: [null, [Validators.required]],
         password: [
           '',
           [
@@ -108,13 +119,14 @@ export class RegisterComponent {
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
+    const hasPassword = !!password;
+    const hasConfirmPassword = !!confirmPassword;
 
-    if (
-      password &&
-      confirmPassword &&
-      password.value !== confirmPassword.value
-    ) {
-      return { passwordMismatch: true };
+    if (hasPassword && hasConfirmPassword) {
+      const passwordsMatch = password!.value === confirmPassword!.value;
+      if (!passwordsMatch) {
+        return { passwordMismatch: true };
+      }
     }
 
     return null;
@@ -132,6 +144,8 @@ export class RegisterComponent {
       lastName: this.registerForm.value.lastName as string,
       email: this.registerForm.value.email as string,
       phone: this.registerForm.value.phone as string,
+      dateOfBirth: this.registerForm.value.dateOfBirth as Date,
+      gender: this.registerForm.value.gender as string,
       password: this.registerForm.value.password as string,
       confirmPassword: this.registerForm.value.confirmPassword as string,
     };

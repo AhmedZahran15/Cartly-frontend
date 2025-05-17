@@ -131,6 +131,134 @@
 
         <div class="field">
           <label
+            for="dateOfBirth"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Birth Date</label
+          >
+          <div class="relative">
+            <i
+              class="pi pi-calendar absolute left-3 top-1/2 transform -translate-y-1/2 z-10"
+              [ngClass]="{
+                'text-gray-500': !(
+                  registerForm.get('dateOfBirth')?.invalid &&
+                  (registerForm.get('dateOfBirth')?.dirty ||
+                    registerForm.get('dateOfBirth')?.touched)
+                ),
+                'text-red-500':
+                  registerForm.get('dateOfBirth')?.invalid &&
+                  (registerForm.get('dateOfBirth')?.dirty ||
+                    registerForm.get('dateOfBirth')?.touched)
+              }"
+            ></i>
+            <p-datePicker
+              id="dateOfBirth"
+              formControlName="dateOfBirth"
+              [showIcon]="false"
+              [maxDate]="maxDate"
+              styleClass="w-full"
+              inputStyleClass="w-full pl-10"
+              placeholder="Select your birth date"
+              dateFormat="dd/mm/yy"
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  registerForm.get('dateOfBirth')?.invalid &&
+                  (registerForm.get('dateOfBirth')?.dirty ||
+                    registerForm.get('dateOfBirth')?.touched)
+              }"
+            ></p-datePicker>
+          </div>
+          @if (registerForm.get('dateOfBirth')?.errors?.['required'] &&
+          (registerForm.get('dateOfBirth')?.dirty ||
+          registerForm.get('dateOfBirth')?.touched)) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            text="Birth date is required"
+          >
+          </p-message>
+          } @if (getServerError('dateOfBirth')) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            [text]="getServerError('dateOfBirth')!"
+          >
+          </p-message>
+          }
+        </div>
+
+        <div class="field">
+          <label
+            for="gender"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Gender</label
+          >
+          <div class="relative">
+            <i
+              class="pi pi-mars absolute left-3 top-1/2 transform -translate-y-1/2 z-10"
+              [ngClass]="{
+                'text-gray-500': !(
+                  registerForm.get('gender')?.invalid &&
+                  (registerForm.get('gender')?.dirty ||
+                    registerForm.get('gender')?.touched)
+                ),
+                'text-red-500':
+                  registerForm.get('gender')?.invalid &&
+                  (registerForm.get('gender')?.dirty ||
+                    registerForm.get('gender')?.touched)
+              }"
+            ></i>
+            <i
+              class="pi pi-venus absolute right-3 top-1/2 transform -translate-y-1/2 z-10"
+              [ngClass]="{
+                'text-gray-500': !(
+                  registerForm.get('gender')?.invalid &&
+                  (registerForm.get('gender')?.dirty ||
+                    registerForm.get('gender')?.touched)
+                ),
+                'text-red-500':
+                  registerForm.get('gender')?.invalid &&
+                  (registerForm.get('gender')?.dirty ||
+                    registerForm.get('gender')?.touched)
+              }"
+            ></i>
+            <p-selectButton
+              id="gender"
+              formControlName="gender"
+              [options]="genderOptions"
+              styleClass="w-full flex"
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  registerForm.get('gender')?.invalid &&
+                  (registerForm.get('gender')?.dirty ||
+                    registerForm.get('gender')?.touched)
+              }"
+            ></p-selectButton>
+          </div>
+          @if (registerForm.get('gender')?.errors?.['required'] &&
+          (registerForm.get('gender')?.dirty ||
+          registerForm.get('gender')?.touched)) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            text="Gender is required"
+          >
+          </p-message>
+          } @if (getServerError('gender')) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            [text]="getServerError('gender')!"
+          >
+          </p-message>
+          }
+        </div>
+
+        <div class="field">
+          <label
             for="email"
             class="block text-sm font-medium text-gray-700 mb-1"
             >Email</label
