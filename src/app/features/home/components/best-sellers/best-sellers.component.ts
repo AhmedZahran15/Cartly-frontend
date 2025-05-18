@@ -1,28 +1,16 @@
-import {
-  Component,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Carousel, CarouselModule, CarouselPageEvent } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
+import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 
 @Component({
   selector: 'app-best-sellers',
-  imports: [CommonModule, CarouselModule, TagModule, ButtonModule],
+  imports: [CommonModule, CarouselModule, ProductCardComponent],
   templateUrl: './best-sellers.component.html',
   styleUrls: ['./best-sellers.component.css'],
 })
-export class BestSellersComponent implements AfterViewInit {
+export class BestSellersComponent {
   @Input() products: any[] = [];
-  @ViewChild('carousel') carousel!: Carousel;
-
-  currentPage = 0;
-  isFirst = true;
-  isLast = false;
 
   responsiveOptions = [
     { breakpoint: '1400px', numVisible: 3, numScroll: 1 },
@@ -31,49 +19,11 @@ export class BestSellersComponent implements AfterViewInit {
     { breakpoint: '575px', numVisible: 1, numScroll: 1 },
   ];
 
-  constructor(private cd: ChangeDetectorRef) {}
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.updateNavStates();
-      this.cd.detectChanges();
-    });
+  handleAddToCart(product: any) {
+    console.log('Add to cart:', product);
   }
 
-  onPageChange(event: CarouselPageEvent) {
-    this.currentPage = event.page ?? 0;
-    this.updateNavStates();
-  }
-
-  private updateNavStates() {
-    if (!this.carousel) {
-      return;
-    }
-    const totalPages = Number(this.carousel.totalDots ?? 0);
-    this.isFirst = this.carousel.page === 0;
-    this.isLast = this.carousel.page === totalPages - 1;
-  }
-
-  goToPrevious() {
-    (this.carousel as any).navBackward(1);
-    setTimeout(() => this.updateNavStates());
-  }
-
-  goToNext() {
-    (this.carousel as any).navForward(1);
-    setTimeout(() => this.updateNavStates());
-  }
-
-  getSeverity(status: string): string {
-    switch (status) {
-      case 'INSTOCK':
-        return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
-        return 'danger';
-      default:
-        return 'info';
-    }
+  handleAddToWishlist(product: any) {
+    console.log('Add to wishlist:', product);
   }
 }
