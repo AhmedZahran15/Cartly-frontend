@@ -15,7 +15,7 @@
   --color-link: #4a3227;
   --color-link-hover: #e4b77f;
   --color-border: #d0d0d0;
-  --color-overlay: rgba(233, 233, 233, 0.5);
+  --color-overlay: rgba(0,0,0, 0.8);
   --shadow-default: 0 0 10px rgba(0,0,0,0.05);
   --color-iconbg:#221d1b;
 }

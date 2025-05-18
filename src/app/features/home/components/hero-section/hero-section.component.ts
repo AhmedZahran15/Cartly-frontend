@@ -10,6 +10,6 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './hero-section.component.css'
 })
 export class HeroSectionComponent {
-   imageUrl='/image.png'
+  //  imageUrl='/image.png'
    
 }
