@@ -124,12 +124,12 @@ export class ViewAllProductsComponent implements OnInit {
 }
 
 onUpdateProduct() {
-  if (this.updateForm.invalid || !this.selectedProductId) return;
 
   const updatedData = this.updateForm.value;
 
-  this.adminService.updateProduct(this.selectedProductId, updatedData).subscribe(() => {
-    this.updateDialogVisible = false;
+  this.adminService.updateProduct(this.selectedProductId!, updatedData).subscribe({
+    next: ()=>{
+       this.updateDialogVisible = false;
     this.selectedProductId = null;
     // Refresh list or show success toast
      this.messageService.add({
@@ -138,6 +138,14 @@ onUpdateProduct() {
           detail: `Product Updated successfully`,
         });
         this.getAllProducts();
+    }, error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Could not Update product',
+        });
+    },
+   
   });
 }
   addProduct(product: any) {

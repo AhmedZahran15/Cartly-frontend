@@ -185,7 +185,7 @@
 
       <div>
         <label class="block text-sm font-medium">Gender</label>
-        <select formControlName="gender" class="w-full p-2 border rounded" title="Gender">
+        <select formControlName="gender" class="w-full p-2 border rounded bg-background" title="Gender">
           <option [ngValue]="updateForm.get('gender')?.value" *ngIf="updateForm.get('gender')?.value && ['Men','Women','Unisex'].indexOf(updateForm.get('gender')?.value) === -1">
             {{ updateForm.get('gender')?.value }}
           </option>
@@ -197,12 +197,18 @@
 
       <div>
         <label class="block text-sm font-medium">Age Group</label>
-        <input formControlName="ageGroup" type="text" class="w-full p-2 border rounded" title="Age Group" />
+        <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 text-accent" title="Age Group">
+          <option value="" disabled selected>Select Age Group</option>
+          <option value="adults">Adults</option>
+          <option value="teens">Teens</option>
+          <option value="kids">Kids</option>
+          <option value="all">All</option>
+        </select>
       </div>
 
       <div>
         <label class="block text-sm font-medium">Stock</label>
-        <input formControlName="stock" type="number" class="w-full p-2 border rounded"  title="Stock"/>
+        <input formControlName="stock" type="number" class="w-full p-2 border rounded" title="Stock"/>
       </div>
 
       <div>
@@ -230,11 +236,11 @@
     <!-- <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="block text-sm font-medium">Brand ID</label>
-        <input formControlName="brand" type="text" class="w-full p-2 border rounded" />
+        <input formControlName="brand" type="text" class="w-full p-2 border rounded" title="brand" />
       </div>
       <div>
         <label class="block text-sm font-medium">Type ID</label>
-        <input formControlName="type" type="text" class="w-full p-2 border rounded" />
+        <input formControlName="type" type="text" class="w-full p-2 border rounded" title="type"/>
       </div>
     </div> -->
 
@@ -242,7 +248,7 @@
       <button
         type="submit"
         class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        [disabled]="updateForm.invalid"
+        
       >
         Update
       </button>
