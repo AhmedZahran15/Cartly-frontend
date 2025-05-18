@@ -6,6 +6,8 @@ import { GenderCategoriesComponent } from '../../components/gender-categories/ge
 import { FeaturesHighlightComponent } from '../../components/features-highlight/features-highlight.component';
 import { QuoteComponent } from '../../components/quote/quote.component';
 import { CertifiedWatchesComponent } from '../../components/certified-watches/certified-watches.component';
+import { TestimonialsComponent } from '../../components/testimonials/testimonials.component';
+import { ExclusiveProductsComponent } from '../../components/exclusive-products/exclusive-products.component';
 
 @Component({
   selector: 'app-home-page',
@@ -16,6 +18,8 @@ import { CertifiedWatchesComponent } from '../../components/certified-watches/ce
     FeaturesHighlightComponent,
     QuoteComponent,
     CertifiedWatchesComponent,
+    ExclusiveProductsComponent,
+    TestimonialsComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css'],
