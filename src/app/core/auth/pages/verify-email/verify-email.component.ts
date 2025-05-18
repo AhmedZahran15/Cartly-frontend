@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
@@ -17,17 +18,21 @@ export class VerifyEmailComponent implements OnInit {
   errorMessage: string | null = null;
   route = inject(ActivatedRoute);
   authService = inject(AuthService);
+  platformId = inject(PLATFORM_ID);
 
   ngOnInit(): void {
-    const params = this.route.snapshot.queryParams;
+    // Only run email verification on the client side to prevent duplicate requests
+    if (isPlatformBrowser(this.platformId)) {
+      const params = this.route.snapshot.queryParams;
 
-    if (params['token']) {
-      this.verifyEmail(params['token']);
-    } else {
-      this.verifying = false;
-      this.verified = false;
-      this.errorMessage =
-        'No verification token provided. Please check your email for the verification link.';
+      if (params['token']) {
+        this.verifyEmail(params['token']);
+      } else {
+        this.verifying = false;
+        this.verified = false;
+        this.errorMessage =
+          'No verification token provided. Please check your email for the verification link.';
+      }
     }
   }
 
