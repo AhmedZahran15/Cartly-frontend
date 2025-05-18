@@ -6,40 +6,40 @@
 
   <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()" class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input formControlName="name" placeholder="Product Name" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input type="number" formControlName="price" placeholder="Price" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input type="number" formControlName="discountPrice" placeholder="Discount Price (optional)" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input type="number" formControlName="stock" placeholder="Stock" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
+      <input formControlName="name" placeholder="Product Name" class="w-full border border-accent px-3 py-2 rounded-md  text-accent" />
+      <input type="number" formControlName="price" placeholder="Price" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input type="number" formControlName="discountPrice" placeholder="Discount Price (optional)" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input type="number" formControlName="stock" placeholder="Stock" class="w-full border px-3 py-2 rounded-md  text-accent" />
     </div>
 
-    <textarea formControlName="description" placeholder="Description" rows="3" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent"></textarea>
+    <textarea formControlName="description" placeholder="Description" rows="3" class="w-full border px-3 py-2 rounded-md  text-accent"></textarea>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
       <div class="flex flex-col">
       <label class="block mb-1 text-primary">Product Images</label>
-      <input type="file" (change)="onFileSelected()" multiple class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" placeholder="image" />
+      <input type="file" (change)="onFileSelected()" multiple class="w-full border px-3 py-2 rounded-md  text-accent" placeholder="image" />
       </div>
       <div class="flex flex-col">
       <label class="block text-gray-700 mb-1 invisible">Keywords</label>
-      <input formControlName="keywords" placeholder="Keywords (comma-separated)" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
+      <input formControlName="keywords" placeholder="Keywords (comma-separated)" class="w-full border px-3 py-2 rounded-md text-accent" />
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <select formControlName="gender" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background focus:ring-green-400 text-accent" title="gender">
+      <select formControlName="gender" class="w-full border px-3 py-2 rounded-md focus:ring-2  text-accent" title="gender">
         <option value="" disabled selected>Select Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="unisex">Unisex</option> 
       </select>
-      <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background  focus:ring-green-400 text-accent" title="Age Group">
+      <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 text-accent" title="Age Group">
         <option value="" disabled selected>Select Age Group</option>
         <option value="adults">Adults</option>
         <option value="teens">teens</option>
         <option value="kids">Kids</option>
         <option value="all">All</option>
       </select>
-      <select formControlName="brand" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background focus:ring-green-400 text-accent" title="Brand">
+      <select formControlName="brand" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Brand">
         <option value="" disabled selected>Select Brand</option>
         <option *ngFor="let brand of brands" [value]="brand._id">{{ brand.name }}</option> 
       </select> 
@@ -47,33 +47,33 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
      
-      <select formControlName="movementType" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background focus:ring-green-400 text-accent" title="Movement Type">
+      <select formControlName="movementType" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Movement Type">
         <option value="" disabled selected>Select Movement Type</option>
         <option value="automatic">Automatic</option> 
         <option value="quartz">Quartz</option>
         <option value="manual">Manual</option>
       </select>
      
-      <input formControlName="caseMaterial" placeholder="Case Material" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input formControlName="bandMaterial" placeholder="Band Material" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input formControlName="waterResistance" placeholder="Water Resistance (e.g. 200m)" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <select formControlName="displayType" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background focus:ring-green-400 text-accent" title="Display Type">
+      <input formControlName="caseMaterial" placeholder="Case Material" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input formControlName="bandMaterial" placeholder="Band Material" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input formControlName="waterResistance" placeholder="Water Resistance (e.g. 200m)" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <select formControlName="displayType" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Display Type">
         <option value="" disabled selected>Select Display Type</option>
         <option value="Analog">Analog</option>
         <option value="Digital">Digital</option>
         <option value="Analog-Digital">Analog-Digital</option>
       </select>
-      <select formControlName="type" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background focus:ring-green-400 text-accent" title="Type Name">
+      <select formControlName="type" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Type Name">
           <option value="" disabled selected>Select Type</option>
           <option *ngFor="let type of productTypes" [value]="type._id">{{ type.name }}</option>
         </select>
     </div>
 
     <div formGroupName="specifications" class="grid grid-cols-2 gap-4">
-      <input formControlName="powerReserve" placeholder="Power Reserve" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input formControlName="caseSize" placeholder="Case Size" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input formControlName="crystal" placeholder="Crystal" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
-      <input formControlName="bezel" placeholder="Bezel" class="w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-green-400 text-accent" />
+      <input formControlName="powerReserve" placeholder="Power Reserve" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input formControlName="caseSize" placeholder="Case Size" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input formControlName="crystal" placeholder="Crystal" class="w-full border px-3 py-2 rounded-md  text-accent" />
+      <input formControlName="bezel" placeholder="Bezel" class="w-full border px-3 py-2 rounded-md  text-accent" />
     </div>
  
     <div class="grid grid-cols-2 gap-4">

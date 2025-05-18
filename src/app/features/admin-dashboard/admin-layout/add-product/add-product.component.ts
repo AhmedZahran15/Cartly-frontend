@@ -65,6 +65,7 @@ export class AddProductComponent implements OnInit {
     this.getAllBrands();
     this.getAllproductTypes();
   }
+  
 // get all brands
   getAllBrands(){
     this.adminService.getAllBrand().subscribe({
@@ -78,6 +79,7 @@ export class AddProductComponent implements OnInit {
       },
     })
   }
+
 // get all product types
 getAllproductTypes(){
     this.adminService.getAllProductTypes().subscribe({
@@ -91,6 +93,7 @@ getAllproductTypes(){
       },
     })
   }
+
   onSubmit(): void {
     console.log("Iam submitted")
     const formValue = this.addProductForm.value;
