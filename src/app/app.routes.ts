@@ -24,13 +24,6 @@ export const routes: Routes = [
       ).then((m) => m.CollectionsPageComponent)
   },
   {
-    path: 'blog',
-    loadComponent: () =>
-      import(
-        './features/blog/pages/blog-page/blog-page.component'
-      ).then((m) => m.BlogPageComponent)
-  },
-  {
     path: 'contact',
     loadComponent: () =>
       import(
