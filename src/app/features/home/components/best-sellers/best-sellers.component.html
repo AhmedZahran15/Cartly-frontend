@@ -14,8 +14,9 @@
       [showIndicators]="false"
       [showNavigators]="true"
       [autoplayInterval]="2000"
+      [circular]="true"
     >
-      <ng-template pTemplate="item" let-product>
+      <ng-template let-product #item>
         <app-product-card
           [product]="product"
           (onAddToCart)="handleAddToCart($event)"
