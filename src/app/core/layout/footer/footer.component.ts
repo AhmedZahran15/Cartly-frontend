@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  imports: [ButtonModule,CommonModule],
+  imports: [ButtonModule, CommonModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  imageUrl='/image.png'
+  imageUrl = '/image.png';
 }

@@ -20,17 +20,35 @@ export class ProductService {
       { 
         name: 'Midnight Black', 
         price: 180, 
-        imageUrl: '/watch1.png',
+        imageUrl: '/watch3.png',
         inventoryStatus: 'INSTOCK'
       },
       { 
         name: 'Ocean Blue', 
         price: 170, 
-        imageUrl: '/watch2.png',
+        imageUrl: '/watch4.png',
         inventoryStatus: 'OUTOFSTOCK'
-      }
+      },
+      { 
+        name: 'Ocean Blue', 
+        price: 170, 
+        imageUrl: '/watch5.png',
+        inventoryStatus: 'OUTOFSTOCK'
+      },
+      { 
+        name: 'Ocean Blue', 
+        price: 170, 
+        imageUrl: '/watch1.png',
+        inventoryStatus: 'OUTOFSTOCK'
+      },
+      { 
+        name: 'Ocean Blue', 
+        price: 170, 
+        imageUrl: '/watch4.png',
+        inventoryStatus: 'OUTOFSTOCK'
+      },
     ];
 getProducts() {
- return this.products; // Direct return for synchronous data
+ return this.products;
 }
 }
