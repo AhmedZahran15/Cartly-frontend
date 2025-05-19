@@ -28,7 +28,7 @@ export class NavbarComponent {
   links = [
     { label: 'Home', path: '/' },
     { label: 'Collections', path: '/collections' },
-    { label: 'Blog', path: '/blog' },
+    { label: 'About Us', path: '/about-us' },
     { label: 'Contact', path: '/contact' }
   ];
 

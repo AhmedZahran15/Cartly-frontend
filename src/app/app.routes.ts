@@ -34,6 +34,21 @@ export const routes: Routes = [
     title: 'Access Denied - Cartly',
   },
   {
+    path: 'contact',
+    loadComponent: () =>
+      import(
+        './features/contact/pages/contact-page/contact-page.component'
+      ).then((m) => m.ContactPageComponent)
+  },
+  {
+    path: 'about-us',
+    loadComponent: () =>
+      import(
+        './features/about-us/pages/about-us-page/about-us-page.component'
+      ).then((m) => m.AboutUsPageComponent)
+
+  },
+  {
     path: '**',
     redirectTo: '',
   },
