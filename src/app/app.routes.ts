@@ -31,6 +31,14 @@ export const routes: Routes = [
       ).then((m) => m.ContactPageComponent)
   },
   {
+    path: 'about-us',
+    loadComponent: () =>
+      import(
+        './features/about-us/pages/about-us-page/about-us-page.component'
+      ).then((m) => m.AboutUsPageComponent)
+
+  },
+  {
     path: 'cart',
     loadComponent: () =>
       import(
