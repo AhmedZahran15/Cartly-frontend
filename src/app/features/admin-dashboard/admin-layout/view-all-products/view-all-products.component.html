@@ -1,0 +1,285 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div
+  class="p-8 bg-background rounded-lg shadow max-w-8xl mx-auto space-y-7 "
+>
+  <h2 class="text-2xl font-bold  mb-4 shadow-shadow text-accent">
+    All Products Featured.
+  </h2>
+
+  <div *ngIf="products.length === 0" class="text-accent">
+    Please Add New Products.
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 text-accent">
+    <div
+      *ngFor="let product of products"
+      class="bg-background rounded-2xl shadow-md overflow-hidden border border-border shadow-shadow flex flex-col"
+    >
+      <img
+        [src]="product.images[0]"
+        alt="{{ product.name }}"
+        class="w-full h-60 object-cover"
+      />
+      <div class="p-4 flex flex-col flex-grow">
+        <h2 class="text-xl font-bold  ">{{ product.name }}</h2>
+        <p class="text-primary mb-1">
+          {{ product.brand.name }} • {{ product.type.name }}
+        </p>
+        <p class="text-sm mb-2">
+          {{ product.description | slice : 0 : 80 }}...
+        </p>
+
+        <div class="mt-auto">
+          <div class="flex items-center justify-between mt-4">
+            <div class="text-lg font-bold  text-emerald-600">
+              $ {{ product.discountPrice || product.price }}
+              <span
+                *ngIf="product.discountPrice"
+                class="line-through text-sm text-secondary ml-2"
+              >
+                $ {{ product.price }}
+              </span>
+            </div>
+            <div
+              class="rounded-full px-3 py-1 text-xs font-bold "
+              [ngClass]="{
+                'bg-green-100 text-green-600': product.stock > 10,
+                'bg-yellow-100 text-yellow-700':
+                  product.stock <= 10 && product.stock > 0,
+                'bg-red-100 text-red-600': product.stock === 0
+              }"
+            >
+              {{
+                product.stock > 0 ? product.stock + " in stock" : "Out of stock"
+              }}
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 mt-4">
+             <button
+              class="px-4 py-1.5 text-sm font-medium rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition cursor-pointer"
+              (click)="viewProduct(product)"
+            >
+              View
+            </button>
+            <button
+              class="px-4 py-1.5 text-sm font-medium rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition cursor-pointer"
+              (click)="openUpdateDialog(product)"
+            >
+              Update
+            </button>
+            <button
+              class="px-4 py-1.5 text-sm font-medium rounded-xl bg-red-500 text-white hover:bg-red-600 transition cursor-pointer"
+              (click)="confirmDelete(product._id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Dialog -->
+<p-dialog
+  header="Product Details"
+  [(visible)]="viewDialogVisible"
+  [modal]="true"
+  [style]="{ width: '900px' }"
+  [closable]="true"
+  (onHide)="selectedProduct = null"
+  [contentStyle]="{ 'max-height': '90vh', overflow: 'auto' }"
+>
+  <ng-container *ngIf="selectedProduct">
+    <!-- Product Image Section -->
+    <div class="mb-6">
+      <h3 class="text-2xl font-bold  text-accent mb-3 border-b pb-2">Product Image</h3>
+      <div class="flex justify-center">
+        <img
+          [src]="selectedProduct.images[0]"
+          alt="{{ selectedProduct.name }}"
+          class="w-90 h-64 object-cover rounded-xl shadow-lg border"
+        />
+      </div>
+    </div>
+
+    <!-- Basic Info Section -->
+    <div class="mb-6">
+      <h3 class="text-2xl font-bold  text-accent mb-3 border-b pb-2">Basic Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-accent"></div>
+        <div>
+          <h2 class="text-xl font-bold  text-primary mb-2">{{ selectedProduct.name }}</h2>
+          <p><span class="font-bold ">Description:</span> {{ selectedProduct.description }}</p>
+          <p><span class="font-bold ">Gender:</span> {{ selectedProduct.gender }}</p>
+          <p><span class="font-bold ">Age Group:</span> {{ selectedProduct.ageGroup }}</p>
+        </div>
+        <div>
+          <p>
+            <span class="font-bold ">Stock:</span>
+            <span
+              [ngClass]="{
+                'text-green-600': selectedProduct.stock > 10,
+                'text-yellow-600': selectedProduct.stock <= 10 && selectedProduct.stock > 0,
+                'text-red-600': selectedProduct.stock === 0
+              }"
+            >
+              {{ selectedProduct.stock > 0 ? selectedProduct.stock + ' in stock' : 'Out of stock' }}
+            </span>
+          </p>
+          <p class="mt-2">
+            <span class="font-bold ">Price:</span>
+            <span class="text-emerald-600 font-bold  text-lg">
+              ${{ selectedProduct.discountPrice || selectedProduct.price }}
+            </span>
+            <span
+              *ngIf="selectedProduct.discountPrice"
+              class="line-through text-secondary ml-2 text-sm"
+            >
+              ${{ selectedProduct.price }}
+            </span>
+          </p>
+        </div>
+      </div>
+    
+
+    <!-- Brand & Type Section -->
+    <div class="mb-6">
+      <h3 class="text-2xl font-bold  text-accent mb-3 border-b pb-2">Brand & Type</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-accent">
+        <div>
+          <p><span class="font-bold ">Brand:</span> {{ selectedProduct.brand.name }}</p>
+          <p><span class="font-bold ">Type:</span> {{ selectedProduct.type.name }}</p>
+          <p><span class="font-bold ">Case Material:</span> {{ selectedProduct.caseMaterial }}</p>
+        </div>
+        <div>
+          <p><span class="font-bold ">Display Type:</span> {{ selectedProduct.displayType }}</p>
+          <p><span class="font-bold ">Movement Type:</span> {{ selectedProduct.movementType }}</p>
+          <p><span class="font-bold ">Water Resistance:</span> {{ selectedProduct.waterResistance }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specifications Section -->
+    <div class="mb-6" *ngIf="selectedProduct.specifications">
+      <h3 class="text-2xl font-bold  text-accent mb-3 border-b pb-2">Specifications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-accent">
+        <div>
+          <ng-container *ngIf="selectedProduct.specifications as specs">
+            <p *ngIf="specs.powerReserve"><span class="font-bold ">Power Reserve:</span> {{ specs.powerReserve }}</p>
+            <p *ngIf="specs.caseSize"><span class="font-bold ">Case Size:</span> {{ specs.caseSize }}</p>
+            <p *ngIf="specs.crystal"><span class="font-bold ">Crystal:</span> {{ specs.crystal }}</p>
+            <p *ngIf="specs.bezel"><span class="font-bold ">Bezel:</span> {{ specs.bezel }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keywords Section -->
+    <div class="mb-2">
+      <h3 class="text-2xl font-bold  text-accent mb-3 border-b pb-2">Keywords</h3>
+      <ul class="list-disc list-inside ml-4 mb-2">
+        <li *ngFor="let keyword of selectedProduct.keywords">{{ keyword }}</li>
+      </ul>
+    </div>
+  </ng-container>
+</p-dialog>
+
+<!-- Update Product Dialog -->
+<p-dialog
+  header="Update Product"
+  [(visible)]="updateDialogVisible"
+  [modal]="true"
+  [style]="{ width: '700px' }"
+  [closable]="true"
+  (onHide)="updateForm.reset()"
+  [contentStyle]="{ 'max-height': '80vh', overflow: 'auto' }"
+>
+  <form [formGroup]="updateForm" (ngSubmit)="onUpdateProduct()" class="space-y-4 text-accent">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Product Name</label>
+        <input formControlName="name" type="text" class="w-full p-2 border rounded" title="Product Name"/>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Gender</label>
+        <select formControlName="gender" class="w-full p-2 border rounded bg-background" title="Gender">
+          <option [ngValue]="updateForm.get('gender')?.value" *ngIf="updateForm.get('gender')?.value && ['male','female','unisex'].indexOf(updateForm.get('gender')?.value.toLowerCase()) === -1">
+        {{ updateForm.get('gender')?.value }}
+          </option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="unisex">Unisex</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Age Group</label>
+        <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 text-accent" title="Age Group">
+          <option value="" disabled selected>Select Age Group</option>
+          <option value="adults">Adults</option>
+          <option value="teens">Teens</option>
+          <option value="kids">Kids</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Stock</label>
+        <input formControlName="stock" type="number" class="w-full p-2 border rounded" title="Stock"/>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Price</label>
+        <input formControlName="price" type="number" class="w-full p-2 border rounded" title="Price" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Discount Price</label>
+        <input formControlName="discountPrice" type="number" class="w-full p-2 border rounded" title="Discounted Price"/>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Description</label>
+      <textarea
+        formControlName="description"
+        rows="3"
+        class="w-full p-2 border rounded"
+        title="Description"
+      ></textarea>
+    </div>
+
+    <!-- Add brand/type if needed -->
+    <!-- <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Brand ID</label>
+        <input formControlName="brand" type="text" class="w-full p-2 border rounded" title="brand" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Type ID</label>
+        <input formControlName="type" type="text" class="w-full p-2 border rounded" title="type"/>
+      </div>
+    </div> -->
+
+    <div class="flex justify-end pt-4 gap-2">
+      <button
+        type="submit"
+        class="bg-blue-600 text-background px-4 py-2 rounded hover:bg-blue-700"
+        
+      >
+        Update
+      </button>
+      <button
+        type="button"
+        class="bg-primary text-background px-4 py-2 rounded hover:bg-link-hover"
+        (click)="updateDialogVisible = false"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</p-dialog>

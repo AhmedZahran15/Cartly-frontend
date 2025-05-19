@@ -1,0 +1,13 @@
+
+.font-bold {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.hoverLink:hover
+{
+  background-color: var(--color-link-hover);
+  font-weight: 700;
+  cursor: pointer;
+}
+ 

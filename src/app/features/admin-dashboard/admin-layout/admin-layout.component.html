@@ -1,0 +1,82 @@
+<div class="min-h-screen bg-background font-sans">
+  <!-- Mobile Menu Button -->
+  <button type="button" (click)="toggleSidebar()" 
+          class="md:hidden p-4 focus:outline-none fixed top-4 left-4 z-50 bg-background rounded-md shadow">
+    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+  
+  <div class="flex flex-col md:flex-row">
+    <!-- Sidebar -->
+    <nav [class.hidden]="!sidebarOpen" 
+         class="w-full md:w-72 bg-background border border-border p-6 shadow-lg rounded-xl m-4 md:m-6 fixed md:relative z-40 md:z-auto top-0 left-0 h-full md:h-auto overflow-auto">
+      <!-- Admin Info -->
+      <section class="mb-6">
+        <div class="flex items-center">  
+          <label class="cursor-pointer relative">
+            <img [src]="user.image ? user.image : 'assets/images/default-avatar.png'" alt="User Avatar"
+              class="w-14 h-14 rounded-full border-2 border-gray-300 object-cover" />
+            <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer"
+              (change)="onProfileImageChange($event)" />
+            <span class="absolute bottom-0 right-0 bg-accent text-white rounded-full p-1 text-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5H4v-3L16.5 3.5z" />
+              </svg>
+            </span>
+          </label>
+          <div class="ml-3 "> 
+            <span class="block text-base font-semibold text-accent"> Hello! {{user.firstName}}</span>
+            <span class="text-sm text-secondary">{{user.email}}</span> 
+          </div>
+        </div>
+      </section>
+
+      <hr class="border-accent mb-6" />
+
+      <!-- Nav Links -->
+      <ul class="space-y-4 text-accent">
+        <!-- Users CRUD -->
+        <li>
+          <h3 class="font-semibold mb-2 text-primary">Users</h3>
+          <ul class="space-y-1 ml-3">
+            <li class="p-2 rounded-lg transition hoverLink" routerLink="/admin/users" routerLinkActive="font-bold"><a  class="block">View Users</a></li>
+        </ul>
+        </li>
+
+        <!-- Products CRUD -->
+        <li>
+          <h3 class="font-semibold mb-2 text-primary">Products</h3>
+          <ul class="space-y-1 ml-3">
+            <li class="p-2 rounded-lg transition hoverLink" routerLink="/admin/products" routerLinkActive="font-bold " [routerLinkActiveOptions]="{ exact: true }" ><a  >View Products</a></li>
+            <li class="p-2 rounded-lg transition hoverLink" routerLink="/admin/products/add" routerLinkActive="font-bold " [routerLinkActiveOptions]="{ exact: true }"><a  >Add Product</a></li>
+        </ul>
+        </li>
+
+        <!-- Orders CRUD -->
+        <li>
+          <h3 class="font-semibold mb-2 text-primary">Orders</h3>
+          <ul class="space-y-1 ml-3">
+            <li class="p-2 rounded-lg transition hoverLink"  routerLink="/admin/orders" routerLinkActive="font-bold"><a class="block hoverLink ">View Orders</a></li>
+        </ul>
+        </li>
+      </ul> 
+
+      <hr class="border-gray-300 my-6" />
+
+      <ul>
+        <li>
+          <a routerLink="/logout" class="text-red-600 hover:underline block cursor-pointer p-2 rounded hover:bg-red-100 transition">Sign Out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

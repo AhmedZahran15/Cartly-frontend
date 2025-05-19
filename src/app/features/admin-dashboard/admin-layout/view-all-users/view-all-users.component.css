@@ -1,0 +1,3 @@
+::ng-deep .dataTable .p-table {
+    background-color: var(--color-background) !important;
+} 
