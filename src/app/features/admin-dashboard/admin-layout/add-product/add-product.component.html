@@ -26,20 +26,20 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <select formControlName="gender" class="w-full border px-3 py-2 rounded-md focus:ring-2  text-accent" title="gender">
+      <select formControlName="gender" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background text-accent" title="gender">
         <option value="" disabled selected>Select Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="unisex">Unisex</option> 
       </select>
-      <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 text-accent" title="Age Group">
+      <select formControlName="ageGroup" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background text-accent" title="Age Group">
         <option value="" disabled selected>Select Age Group</option>
         <option value="adults">Adults</option>
         <option value="teens">teens</option>
         <option value="kids">Kids</option>
         <option value="all">All</option>
       </select>
-      <select formControlName="brand" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Brand">
+      <select formControlName="brand" class="w-full border px-3 py-2 rounded-md focus:ring-2 b bg-background text-accent" title="Brand">
         <option value="" disabled selected>Select Brand</option>
         <option *ngFor="let brand of brands" [value]="brand._id">{{ brand.name }}</option> 
       </select> 
@@ -47,7 +47,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
      
-      <select formControlName="movementType" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Movement Type">
+      <select formControlName="movementType" class="w-full border px-3 py-2 rounded-md focus:ring-2 b bg-background text-accent" title="Movement Type">
         <option value="" disabled selected>Select Movement Type</option>
         <option value="automatic">Automatic</option> 
         <option value="quartz">Quartz</option>
@@ -57,13 +57,13 @@
       <input formControlName="caseMaterial" placeholder="Case Material" class="w-full border px-3 py-2 rounded-md  text-accent" />
       <input formControlName="bandMaterial" placeholder="Band Material" class="w-full border px-3 py-2 rounded-md  text-accent" />
       <input formControlName="waterResistance" placeholder="Water Resistance (e.g. 200m)" class="w-full border px-3 py-2 rounded-md  text-accent" />
-      <select formControlName="displayType" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Display Type">
+      <select formControlName="displayType" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background text-accent" title="Display Type">
         <option value="" disabled selected>Select Display Type</option>
         <option value="Analog">Analog</option>
         <option value="Digital">Digital</option>
         <option value="Analog-Digital">Analog-Digital</option>
       </select>
-      <select formControlName="type" class="w-full border px-3 py-2 rounded-md focus:ring-2 b text-accent" title="Type Name">
+      <select formControlName="type" class="w-full border px-3 py-2 rounded-md focus:ring-2 bg-background text-accent" title="Type Name">
           <option value="" disabled selected>Select Type</option>
           <option *ngFor="let type of productTypes" [value]="type._id">{{ type.name }}</option>
         </select>
