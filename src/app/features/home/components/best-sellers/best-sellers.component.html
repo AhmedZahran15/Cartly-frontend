@@ -1,0 +1,29 @@
+<section class="container mx-auto px-4 py-16">
+  <h6 class="text-on-background text-center pb-5 text-2xl">Glamor Edition</h6>
+  <h2 class="text-7xl text-on-surface text-center mb-12">
+    Special Collections
+  </h2>
+
+  <div class="md:px-12">
+    <p-carousel
+      #carousel
+      [value]="products"
+      [numVisible]="3"
+      [numScroll]="1"
+      [responsiveOptions]="responsiveOptions"
+      [showIndicators]="false"
+      [showNavigators]="true"
+      [autoplayInterval]="2000"
+      [circular]="true"
+    >
+      <ng-template let-product #item>
+        <app-product-card
+          [product]="product"
+          (onAddToCart)="handleAddToCart($event)"
+          (onAddToWishlist)="handleAddToWishlist($event)"
+        >
+        </app-product-card>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>

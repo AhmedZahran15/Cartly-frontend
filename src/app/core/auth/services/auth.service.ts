@@ -45,7 +45,34 @@ export class AuthService {
   private tokenExpirationTimer: ReturnType<typeof setTimeout> | null = null;
 
   /**
-   * Checks if the user is initially authenticated by looking for a token in localStorage
+   * Gets a value from either localStorage or sessionStorage
+   * @param key The key to look for in storage
+   * @returns The stored value or null if not found
+   */
+  private getFromStorage(key: string): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
+    // Try localStorage first, then sessionStorage
+    return localStorage.getItem(key) || sessionStorage.getItem(key);
+  }
+
+  /**
+   * Removes a value from both localStorage and sessionStorage
+   * @param key The key to remove
+   */
+  private removeFromStorage(key: string): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
+  }
+
+  /**
+   * Checks if the user is initially authenticated by looking for a token in storage
    * and verifying it's not expired
    * @returns boolean indicating if the user is authenticated with a valid token
    */
@@ -64,7 +91,7 @@ export class AuthService {
       return false; // Not authenticated on server-side
     }
 
-    const token = localStorage.getItem(this.TOKEN_KEY);
+    const token = this.getFromStorage(this.TOKEN_KEY);
     if (!token) return false;
 
     try {
@@ -75,8 +102,8 @@ export class AuthService {
 
       // If token is expired, clear it and return false
       if (isExpired) {
-        localStorage.removeItem(this.TOKEN_KEY);
-        localStorage.removeItem(this.USER_KEY);
+        this.removeFromStorage(this.TOKEN_KEY);
+        this.removeFromStorage(this.USER_KEY);
 
         if (updateSignals) {
           this.isAuthenticatedSignal.set(false);
@@ -91,7 +118,7 @@ export class AuthService {
         this.isAuthenticatedSignal.set(true);
         // Load user if not already loaded
         if (!this.currentUserSignal()) {
-          const userData = localStorage.getItem(this.USER_KEY);
+          const userData = this.getFromStorage(this.USER_KEY);
           if (userData) {
             this.currentUserSignal.set(JSON.parse(userData));
           }
@@ -101,8 +128,8 @@ export class AuthService {
       return true;
     } catch (error) {
       // If token cannot be decoded, consider it invalid
-      localStorage.removeItem(this.TOKEN_KEY);
-      localStorage.removeItem(this.USER_KEY);
+      this.removeFromStorage(this.TOKEN_KEY);
+      this.removeFromStorage(this.USER_KEY);
 
       if (updateSignals) {
         this.isAuthenticatedSignal.set(false);
@@ -114,7 +141,7 @@ export class AuthService {
   }
 
   /**
-   * Loads the stored user from localStorage
+   * Loads the stored user from storage (localStorage or sessionStorage)
    * @returns The user object or null if not found
    */
   private loadStoredUser(): User | null {
@@ -122,7 +149,7 @@ export class AuthService {
       return null;
     }
 
-    const userData = localStorage.getItem(this.USER_KEY);
+    const userData = this.getFromStorage(this.USER_KEY);
     return userData ? JSON.parse(userData) : null;
   }
 
@@ -141,19 +168,24 @@ export class AuthService {
    * @returns Observable with the auth response
    */
   loginWithCredentials(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.api.post<AuthResponse>('users/login', credentials).pipe(
-      tap((response) => {
-        if (response.success) {
-          this.handleAuthSuccess(response);
-        } else {
-          // If server returned success: false, treat it as an error
-          throw new Error(response.message || 'Login failed');
-        }
-      }),
-      catchError((error) => {
-        return throwError(() => new Error(error.message || 'Login failed'));
+    return this.api
+      .post<AuthResponse>('users/login', {
+        email: credentials.email,
+        password: credentials.password,
       })
-    );
+      .pipe(
+        tap((response) => {
+          if (response.success) {
+            this.handleAuthSuccess(response, credentials.rememberMe);
+          } else {
+            // If server returned success: false, treat it as an error
+            throw new Error(response.message || 'Login failed');
+          }
+        }),
+        catchError((error) => {
+          return throwError(() => new Error(error.error.message || 'Login failed'));
+        })
+      );
   }
 
   /**
@@ -219,8 +251,12 @@ export class AuthService {
   /**
    * Handle successful authentication
    * @param response The auth response from API
+   * @param rememberMe Whether to persist the session across browser sessions
    */
-  private handleAuthSuccess(response: AuthResponse): void {
+  private handleAuthSuccess(
+    response: AuthResponse,
+    rememberMe: boolean = false
+  ): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
     // Verify the success field is true
@@ -234,9 +270,12 @@ export class AuthService {
 
     const { token, user } = response;
 
-    // Store auth data
-    localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    // Choose storage based on remember me option
+    const storage = rememberMe ? localStorage : sessionStorage;
+
+    // Store auth data in the appropriate storage
+    storage.setItem(this.TOKEN_KEY, token);
+    storage.setItem(this.USER_KEY, JSON.stringify(user));
 
     // Update signals
     this.isAuthenticatedSignal.set(true);
@@ -310,7 +349,19 @@ export class AuthService {
             };
             this.currentUserSignal.set(updatedUser);
             if (isPlatformBrowser(this.platformId)) {
-              localStorage.setItem(this.USER_KEY, JSON.stringify(updatedUser));
+              // Update the user data in the same storage that was used for login
+              if (localStorage.getItem(this.TOKEN_KEY)) {
+                localStorage.setItem(
+                  this.USER_KEY,
+                  JSON.stringify(updatedUser)
+                );
+              }
+              if (sessionStorage.getItem(this.TOKEN_KEY)) {
+                sessionStorage.setItem(
+                  this.USER_KEY,
+                  JSON.stringify(updatedUser)
+                );
+              }
             }
           }
         })
@@ -379,33 +430,14 @@ export class AuthService {
   }
 
   /**
-   * Login function that stores the token and updates the authentication state
-   * This is used internally by the service
-   * @param token JWT or other authentication token
-   * @param user User data
-   */
-  private login(token: string, user: User): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-
-    this.isAuthenticatedSignal.set(true);
-    this.currentUserSignal.set(user);
-
-    // Set auto logout timer based on token expiration
-    this.setAutoLogoutTimer();
-  }
-
-  /**
    * Logout function that removes the token and updates the authentication state
    * @param redirectToLogin Whether to redirect to login page (default: true)
    */
   logout(redirectToLogin: boolean = true): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
+    this.removeFromStorage(this.TOKEN_KEY);
+    this.removeFromStorage(this.USER_KEY);
 
     this.isAuthenticatedSignal.set(false);
     this.currentUserSignal.set(null);
@@ -426,7 +458,7 @@ export class AuthService {
       return null;
     }
 
-    return localStorage.getItem(this.TOKEN_KEY);
+    return this.getFromStorage(this.TOKEN_KEY);
   }
 
   /**
@@ -473,7 +505,10 @@ export class AuthService {
     return this.api.post<AuthResponse>('users/refresh-token', {}, headers).pipe(
       tap((response) => {
         if (response.success) {
-          this.handleAuthSuccess(response);
+          // Preserve the same storage (localStorage or sessionStorage) that was used before
+          const wasInLocalStorage =
+            localStorage.getItem(this.TOKEN_KEY) !== null;
+          this.handleAuthSuccess(response, wasInLocalStorage);
         } else {
           // If server returned success: false, treat it as an error
           throw new Error(response.message || 'Token refresh failed');

@@ -1,0 +1,120 @@
+<footer
+  class="text-secondary py-20 relative bg-cover bg-center"
+  [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')' }"
+>
+  <div class="container mx-auto px-4 space-y-8 relative">
+    <div class="grid md:grid-cols-3 gap-8 border-b border-secondary pb-8">
+      <!-- Follow Us -->
+      <div>
+        <h3 class="text-primary uppercase font-bold mb-4">Follow Us</h3>
+        <div class="flex space-x-4">
+          <ng-container
+            *ngFor="
+              let icon of ['facebook', 'twitter', 'instagram', 'linkedin']
+            "
+          >
+            <a href="#" class="group">
+              <div
+                class="bg-iconbg rounded-full w-8 h-8 flex items-center justify-center text-secondary hover:bg-secondary hover:text-black transition-colors"
+              >
+                <i class="pi pi-{{ icon }} text-sm"></i>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Brand Info -->
+      <div class="text-center">
+        <h2 class="text-primary uppercase font-bold text-xl mb-4">
+          Cartly Watches
+        </h2>
+        <p class="text-secondary">
+          Mattis rhoncus urna neque viverra justo nec. Enim facilisis gravida
+          neque convallis a cras semper.
+        </p>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="text-primary uppercase font-bold mb-4">Newsletter</h3>
+
+        <form class="relative group flex items-center gap-2 pb-1">
+          <input
+            type="email"
+            placeholder="Enter email"
+            class="bg-transparent flex-1 focus:outline-none placeholder:text-secondary"
+          />
+          <button
+            type="submit"
+            class="text-secondary font-bold hover:text-primary transition-colors"
+          >
+            SUBSCRIBE
+          </button>
+
+          <span
+            class="absolute bottom-0 left-0 h-[2px] w-full bg-secondary"
+          ></span>
+
+          <span
+            class="absolute bottom-0 left-0 h-[2px] bg-primary w-0 group-hover:w-full transition-all duration-500 ease-in-out"
+          ></span>
+        </form>
+
+        <p class="text-sm italic mt-2">
+          We do not spam. We send offers instead.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div
+      class="grid md:grid-cols-3 gap-8 border-b border-secondary pb-8 justify-center items-center"
+    >
+      <!-- Phone -->
+      <div class="flex items-center gap-4 justify-center group">
+        <div class="icon-3q w-10 h-10 flex items-center justify-center">
+          <i class="pi pi-phone text-primary text-lg"></i>
+        </div>
+        <p>(000) 123 456789</p>
+      </div>
+
+      <!-- Email -->
+      <div class="flex items-center gap-4 justify-center group">
+        <div class="icon-3q w-10 h-10 flex items-center justify-center">
+          <i class="pi pi-envelope text-primary text-lg"></i>
+        </div>
+        <p>info&#64;example.com</p>
+      </div>
+
+      <!-- Address -->
+      <div class="flex items-center gap-4 justify-center group">
+        <div class="icon-3q w-10 h-10 flex items-center justify-center">
+          <i class="pi pi-map-marker text-primary text-lg"></i>
+        </div>
+        <p>No: 58 A, East Madison Street</p>
+      </div>
+    </div>
+
+    <!--Copyright & Links -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+    >
+      <div class="order-2 md:order-1">
+        <span>© 2025 Cartly </span>
+      </div>
+      <div class="order-3 md:order-2 flex space-x-4">
+        <a
+          routerLink="/privacy"
+          class="text-secondary hover:text-primary transition-colors"
+          >Privacy Policy</a
+        >
+        <a
+          routerLink="/terms"
+          class="text-secondary hover:text-primary transition-colors"
+          >Terms</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

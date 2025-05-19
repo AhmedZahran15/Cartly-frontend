@@ -25,9 +25,63 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(req);
   }
 
-  // Skip token checks for auth endpoints to avoid loops
-  const authEndpoints = ['/api/users/login', '/api/users/register', '/api/users/refresh-token'];
-  if (authEndpoints.some(endpoint => req.url.includes(endpoint))) {
+  // Define public endpoints that don't require authentication with their HTTP methods
+  const publicEndpoints = [
+    // User/Auth endpoints
+    { path: '/api/users/login', method: 'POST' },
+    { path: '/api/users/register', method: 'POST' },
+    { path: '/api/users/verify-email', method: 'POST' },
+    { path: '/api/users/forgot-password', method: 'POST' },
+    { path: '/api/users/reset-password', method: 'POST' },
+    // Product endpoints
+    { path: '/api/products', method: 'GET' },
+    { path: '/api/products/featured', method: 'GET' },
+    // Product by ID pattern
+    { path: '/api/products/', method: 'GET' }, // This will match /api/products/:id pattern
+    // Categories
+    { path: '/api/categories', method: 'GET' },
+    // Brand endpoints
+    { path: '/api/brands', method: 'GET' },
+    { path: '/api/brands/', method: 'GET' }, // This will match /api/brands/:id pattern
+    // Product Type endpoints
+    { path: '/api/producttypes', method: 'GET' },
+    { path: '/api/producttypes/', method: 'GET' }, // This will match /api/producttypes/:id pattern
+    // Other public endpoints
+    { path: '/api/search', method: 'GET' },
+  ];
+
+  // Check if the request is for a public endpoint by matching both path and method
+  const isPublicEndpoint = publicEndpoints.some(
+    (endpoint) =>
+      req.url.includes(endpoint.path) &&
+      (!endpoint.method || req.method === endpoint.method)
+  );
+
+  // Skip authentication checks for public endpoints
+  if (isPublicEndpoint) {
+    // For public endpoints, we'll still attach the token if available
+    // This helps with personalized content like "Recently viewed" or user-specific pricing
+    const availableToken = authService.getToken();
+    if (availableToken) {
+      const authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${availableToken}`,
+        },
+      });
+      return next(authReq);
+    }
+    return next(req);
+  }
+
+  // From this point forward, we're dealing with protected endpoints
+  const currentToken = authService.getToken();
+
+  // Handle refresh token requests - we don't need special handling here
+  // The refreshToken method in AuthService will handle this with proper headers
+
+  // If no token and endpoint requires auth, proceed without token
+  // The backend will handle the 401 response
+  if (!currentToken) {
     return next(req);
   }
 
@@ -65,32 +119,28 @@ export const authInterceptor: HttpInterceptorFn = (
     );
   }
 
-  const token = authService.getToken();
+  // Clone the request and add the authorization header
+  const authReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  });
 
-  // Clone the request and add the authorization header if token exists
-  if (token) {
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  // Process the request with token and handle any auth errors
+  return next(authReq).pipe(
+    catchError((error) => {
+      // Handle 401 Unauthorized errors
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        // Token expired or invalid, logout the user
+        authService.logout();
+        router.navigate(['/auth/login'], {
+          queryParams: { unauthorized: 'true' },
+        });
+      }
+      return throwError(() => error);
+    })
+  );
 
-    // Process the request with token and handle any auth errors
-    return next(authReq).pipe(
-      catchError((error) => {
-        // Handle 401 Unauthorized errors
-        if (error instanceof HttpErrorResponse && error.status === 401) {
-          // Token expired or invalid, logout the user
-          authService.logout();
-          router.navigate(['/auth/login'], {
-            queryParams: { unauthorized: 'true' },
-          });
-        }
-        return throwError(() => error);
-      })
-    );
-  }
-
-  // No token available, proceed with the original request
+  // This should never be reached due to the refactored logic above
   return next(req);
 };

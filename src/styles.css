@@ -15,8 +15,9 @@
   --color-link: #4a3227;
   --color-link-hover: #e4b77f;
   --color-border: #d0d0d0;
-  --color-overlay: rgba(233, 233, 233, 0.5);
+  --color-overlay: rgba(0,0,0, 0.8);
   --shadow-default: 0 0 10px rgba(0,0,0,0.05);
+  --color-iconbg:#221d1b;
 }
 
 .my-app-dark {
@@ -33,4 +34,9 @@
   --color-overlay: rgba(0, 0, 0, 0.5);
   --shadow-default: 0 0 10px rgba(0,0,0,0.4);
 }
-
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poiret One", cursive;
+     letter-spacing: 0.1em;
+  }
+}

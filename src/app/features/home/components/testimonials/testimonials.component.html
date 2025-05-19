@@ -1,0 +1,67 @@
+<section
+  class="relative min-h-screen bg-cover bg-center"
+  style="background-image: url('/testimonialBg.png')"
+>
+  <div class="container mx-auto px-4 py-24 relative z-10">
+    <!-- Headings -->
+    <div class="text-left mb-16">
+      <h6 class="text-xl text-secondary tracking-widest mb-4 font-bold">
+        CLIENTS REACTIONS
+      </h6>
+      <h1 class="text-4xl md:text-7xl text-on-surface">OUR TESTIMONIALS</h1>
+    </div>
+
+    <!-- Testimonial Carousel -->
+    <div
+      class="max-w-3xl w-full
+             border-t-[1px] border-r-[1px] border-b-[1px] border-secondary
+             rounded-xl p-8 relative"
+    >
+      <!-- Testimonial Content -->
+      <div
+        *ngFor="let testimonial of testimonials; let i = index"
+        class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        [class.hidden]="i !== activeIndex"
+      >
+        <!-- Text Content -->
+        <div class="lg:col-span-2 space-y-4">
+          <p class="text-2xl text-secondary leading-relaxed">
+            "{{ testimonial.text }}"
+          </p>
+          <div class="flex items-center gap-4">
+            <img
+              [src]="testimonial.userImage"
+              class="w-16 h-16 rounded-full object-cover"
+              alt="Client photo"
+            />
+            <div>
+              <h4 class="font-bold text-secondary">
+                {{ testimonial.userName }}
+              </h4>
+              <p class="text-secondary">{{ testimonial.userTitle }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Image -->
+        <div class="relative">
+          <img
+            src="/testimonialQuote.png"
+            class="absolute bottom-0 right-0 w-30 object-cover"
+            alt="Decorative element"
+          />
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <div class="flex justify-center gap-2 mt-8">
+        <button
+          *ngFor="let _ of testimonials; let i = index"
+          (click)="activeIndex = i"
+          [class]="i === activeIndex ? 'bg-primary w-8' : 'bg-primary w-4'"
+          class="h-2 rounded-full transition-all duration-300"
+        ></button>
+      </div>
+    </div>
+  </div>
+</section>

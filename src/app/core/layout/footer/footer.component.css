@@ -1,0 +1,21 @@
+.icon-3q {
+  border: 1px solid #ecc696;
+  border-radius: 50%;
+  border-left-color: transparent;         
+  transition: transform 0.6s ease-in-out; 
+  display: inline-flex;                 
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-3q i {
+  display: inline-block;
+  transition: transform 0.6s ease-in-out;
+}
+
+.group:hover .icon-3q {
+  transform: rotate(180deg);
+}
+.group:hover .icon-3q i {
+  transform: rotate(-180deg);
+}

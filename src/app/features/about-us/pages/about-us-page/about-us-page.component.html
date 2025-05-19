@@ -1,0 +1,208 @@
+<section
+  class="relative h-64 bg-cover bg-center"
+  [ngStyle]="{ 'background-image': 'url(' + aboutImage + ')' }"
+>
+  <div class="relative z-10 flex flex-col items-center justify-center h-full">
+    <h1 class="text-4xl md:text-5xl font-bold text-primary mt-10">About</h1>
+  </div>
+</section>
+
+<!-- Company Intro Section -->
+<section class="mt-20 text-on-background">
+  <div class="container mx-auto px-6 text-center">
+    <h1 class="text-5xl md:text-6xl font-bold tracking-widest mb-6">
+      WHO WE ARE
+    </h1>
+    <p class="max-w-3xl mx-auto text-lg md:text-xl text-secondary">
+      We are a team of passionate artisans and watch experts dedicated to
+      crafting timeless pieces that blend tradition, precision, and luxury. Our
+      mission is to bring you high-quality vintage and modern watches, backed by
+      unmatched service and craftsmanship. From creation to restoration, we
+      ensure every moment counts.
+    </p>
+  </div>
+</section>
+
+<!-- Cards Section -->
+<div class="container mx-auto py-15">
+  <!-- Card 1: -->
+  <div class="flex flex-col md:flex-row items-center">
+    <div class="md:w-1/2 p-6">
+      <img
+        src="/about-us1.png"
+        alt="Vintage Watches"
+        class="w-full rounded-lg shadow-lg"
+      />
+    </div>
+    <div class="md:w-1/2">
+      <h2 class="text-4xl tracking-widest font-bold mb-4">
+        VINTAGE MEN & WOMEN'S WATCH
+      </h2>
+      <p class="text-secondary mb-4">
+        Team handcraft unique timepieces with luxurious finishes patterns diam
+        sit amet eros fringilla et hendrerit lorem sit ipsum dolor amet special
+        materials, handcrafted techniques all magna sit.
+      </p>
+      <a
+        routerLink="/collections"
+        class="inline-block border border-secondary text-secondary px-6 py-2 text-sm rounded-lg hover:bg-secondary hover:text-white transition duration-300"
+      >
+        LEARN MORE
+      </a>
+    </div>
+  </div>
+
+  <!-- Card 2: -->
+  <div class="flex flex-col md:flex-row-reverse items-center mb-16">
+    <div class="md:w-1/2">
+      <img
+        src="about-us2.png"
+        alt="Watch Repair"
+        class="w-full rounded-lg shadow-lg"
+      />
+    </div>
+    <div class="md:w-1/2 p-6">
+      <h2 class="text-4xl font-bold tracking-widest mb-4">
+        WATCH REPAIR & SERVICES
+      </h2>
+      <p class="text-secondary mb-4">
+        Team handcraft unique timepieces with luxurious finishes patterns diam
+        sit amet eros fringilla et hendrerit lorem sit ipsum dolor amet special
+        materials, handcrafted techniques all magna sit.
+      </p>
+      <a
+        routerLink="/collections"
+        class="inline-block border border-secondary text-secondary px-6 py-2 text-sm rounded-lg hover:bg-secondary hover:text-white transition duration-300"
+      >
+        LEARN MORE
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials Section -->
+<app-testimonials></app-testimonials>
+
+<!-- Watches Section -->
+<div class="py-16">
+  <div class="container mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-md text-secondary uppercase tracking-wider mb-4">
+        EXPERT GUIDES
+      </p>
+      <h2 class="text-7xl tracking-widest">LUXURY WATCHES</h2>
+    </div>
+
+    <div
+      class="flex flex-col md:flex-row gap-6 justify-center mx-auto max-w-7xl"
+    >
+      <!-- First (Analog) -->
+      <div *ngIf="watches[0]" class="relative group md:w-2/3">
+        <img
+          [src]="watches[0].src"
+          [alt]="watches[0].type + ' Watch'"
+          class="w-full h-full object-cover rounded-lg shadow-lg"
+        />
+        <a
+          routerLink="/collections"
+          class="absolute inset-0 bg-overlay/60 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"
+        >
+          <span class="text-white text-2xl font-semibold flex items-center">
+            {{ watches[0].type }} <i class="pi pi-chevron-right ml-2"></i>
+          </span>
+        </a>
+      </div>
+
+      <!-- Second column -->
+      <div class="md:w-1/2 flex flex-col gap-6 h-full">
+        <!-- Antique -->
+        <div *ngIf="watches[1]" class="relative group h-1/2">
+          <img
+            [src]="watches[1].src"
+            [alt]="watches[1].type + ' Watch'"
+            class="w-full h-full object-cover rounded-lg shadow-lg"
+          />
+          <a
+            routerLink="/collections"
+            class="absolute inset-0 bg-overlay/60 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"
+          >
+            <span class="text-white text-xl font-semibold flex items-center">
+              {{ watches[1].type }} <i class="pi pi-chevron-right ml-2"></i>
+            </span>
+          </a>
+        </div>
+
+        <!-- Classic -->
+        <div *ngIf="watches[2]" class="relative group h-1/2">
+          <img
+            [src]="watches[2].src"
+            [alt]="watches[2].type + ' Watch'"
+            class="w-full h-full object-cover rounded-lg shadow-lg"
+          />
+          <a
+            routerLink="/collections"
+            class="absolute inset-0 bg-overlay/60 bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"
+          >
+            <span class="text-white text-xl font-semibold flex items-center">
+              {{ watches[2].type }} <i class="pi pi-chevron-right ml-2"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Our Team Section -->
+<div class="py-16">
+  <div class="container mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-7xl tracking-widest mb-20">OUR TEAM</h1>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 justify-items-center">
+      <!-- Each team member -->
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Rawan Ali"
+        position="Full Stack"
+        imageUrl="/rawan.png"
+      ></app-team-member>
+
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Ahmed Zahran"
+        position="Full Stack"
+        imageUrl="/ahmed.png"
+      ></app-team-member>
+
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Nour Mamoun"
+        position="Full Stack"
+        imageUrl="/nour.png"
+      ></app-team-member>
+
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Ali El Gendy"
+        position="Full Stack"
+        imageUrl="/ali.png"
+      ></app-team-member>
+
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Omar Morad"
+        position="Full Stack"
+        imageUrl="/omar.png"
+      ></app-team-member>
+
+      <app-team-member
+        class="w-full max-w-sm"
+        name="Amal Mohsen"
+        position="Full Stack"
+        imageUrl="/amal.png"
+      ></app-team-member>
+    </div>
+  </div>
+</div>

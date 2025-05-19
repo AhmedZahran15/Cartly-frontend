@@ -57,6 +57,7 @@ export class LoginComponent {
     const credentials = {
       email: this.loginForm.value.email as string,
       password: this.loginForm.value.password as string,
+      rememberMe: this.loginForm.value.rememberMe as boolean,
     };
 
     this.authService.loginWithCredentials(credentials).subscribe({

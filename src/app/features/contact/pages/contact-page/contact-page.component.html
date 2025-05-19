@@ -1,0 +1,103 @@
+<section
+  class="relative h-64 bg-cover bg-center"
+  [ngStyle]="{ 'background-image': 'url(' + contactImage + ')' }"
+>
+  <div class="relative z-10 flex flex-col items-center justify-center h-full">
+    <h1 class="text-4xl md:text-5xl font-bold text-primary mt-10">Contact</h1>
+  </div>
+</section>
+
+<!-- Info Cards -->
+<section
+  class="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+>
+  <div
+    *ngFor="let info of contacts"
+    class="bg-primary backdrop-blur-md p-6 rounded-lg flex items-baseline space-x-4"
+  >
+    <i
+      [class]="
+        'pi pi-' + info.icon + ' text-xl text-on-background flex-shrink-0'
+      "
+    ></i>
+    <div>
+      <p class="font-semibold text-lg text-on-background leading-tight">
+        {{ info.title }}
+      </p>
+      <p class="mt-1 text-sm text-secondary" style="white-space: pre-line">
+        {{ info.detail }}
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Map & Form -->
+<section
+  class="container mx-auto px-4 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8"
+>
+  <!-- Embedded Google Map -->
+  <div class="w-full h-80 rounded-lg overflow-hidden shadow-md">
+    <iframe
+      class="w-full h-full"
+      [src]="mapUrl"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <!-- Contact Form -->
+  <div>
+    <div *ngIf="successMessage" class="text-green-600 my-1 text-center">
+      {{ successMessage }}
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-3xl font-semibold mb-8 text-on-background">
+        Contact Form
+      </h2>
+      <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <div class="space-y-4 text-secondary">
+          <input
+            name="name"
+            [(ngModel)]="formData.name"
+            required
+            placeholder="Name"
+            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring"
+          />
+
+          <input
+            name="email"
+            [(ngModel)]="formData.email"
+            required
+            type="email"
+            placeholder="Email"
+            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring"
+          />
+
+          <input
+            name="phone"
+            [(ngModel)]="formData.phone"
+            placeholder="Phone"
+            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring"
+          />
+
+          <textarea
+            name="message"
+            [(ngModel)]="formData.message"
+            required
+            rows="5"
+            placeholder="Message"
+            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="contactForm.invalid"
+          class="inline-block border border-secondary text-secondary px-6 py-2 text-sm rounded-lg hover:bg-secondary hover:text-white transition duration-300 mt-8"
+        >
+          Send →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

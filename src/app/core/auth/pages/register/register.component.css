@@ -1,0 +1,28 @@
+/* Custom styles for the registration form */
+
+/* Ensure selectButton takes full width and has proper styling */
+:host ::ng-deep .p-selectbutton {
+  width: 100%;
+  display: flex;
+}
+
+:host ::ng-deep .p-selectbutton .p-button {
+  flex: 1;
+  justify-content: center;
+}
+
+/* Ensure datePicker input with icon has proper padding */
+:host ::ng-deep .p-datepicker .p-inputtext {
+  padding-left: 2.5rem !important;
+}
+
+/* Make gender select buttons look more modern */
+:host ::ng-deep .p-selectbutton .p-button.p-highlight {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Add left padding to account for the icon */
+:host ::ng-deep .p-datepicker-trigger {
+  padding-left: 2.5rem;
+}
