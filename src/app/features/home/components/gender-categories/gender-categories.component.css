@@ -1,0 +1,49 @@
+/* Line Animations */
+.animate-bounce-x {
+  animation: bounce-x 1.5s infinite;
+}
+
+@keyframes bounce-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(0.5rem); }
+}
+
+/* Image Entrance Animation */
+.-translate-x-full {
+  transform: translateX(-100%);
+}
+
+.translate-x-full {
+  transform: translateX(100%);
+}
+
+.translate-x-0 {
+  transform: translateX(0);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Effects */
+.group-hover\:border-primary\/20 {
+  border-color: rgba(var(--color-primary-rgb), 0.2);
+}
+
+.group-hover\:border-accent\/20 {
+  border-color: rgba(var(--color-accent-rgb), 0.2);
+}
+
+/* External Lines Positioning */
+.-right-4 {
+  right: -1rem;
+}
+
+.-bottom-4 {
+  bottom: -1rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.h-40 {
+  height: 10rem;
+}
