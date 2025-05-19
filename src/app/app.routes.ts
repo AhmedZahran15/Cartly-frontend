@@ -1,15 +1,27 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth.guard';
-import { AppComponent } from './app.component';
+import { guestGuard } from '@core/auth/guards/guest.guard';
+import { MainLayoutComponent } from '@core/layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    // This will be your home or dashboard component
-    component: AppComponent,
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/home/pages/home-page/home-page.component').then(
+            (m) => m.HomePageComponent
+          ),
+        title: 'Home - Cartly',
+      },
+    ],
   },
   {
     path: 'auth',
+    canActivate: [guestGuard],
     loadChildren: () =>
       import('./core/auth/auth.routes').then((m) => m.authRoutes),
   },
@@ -21,8 +33,8 @@ export const routes: Routes = [
       ),
     title: 'Access Denied - Cartly',
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '/auth/login',
-  // },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
