@@ -183,7 +183,7 @@ export class AuthService {
           }
         }),
         catchError((error) => {
-          return throwError(() => new Error(error.message || 'Login failed'));
+          return throwError(() => new Error(error.error.message || 'Login failed'));
         })
       );
   }
