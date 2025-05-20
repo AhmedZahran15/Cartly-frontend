@@ -20,50 +20,48 @@ export const routes: Routes = [
           ),
         title: 'Home - Cartly',
       },
+      {
+        path: 'contact',
+        loadComponent: () =>
+          import(
+            './features/contact/pages/contact-page/contact-page.component'
+          ).then((m) => m.ContactPageComponent),
+      },
+      {
+        path: 'about-us',
+        loadComponent: () =>
+          import(
+            './features/about-us/pages/about-us-page/about-us-page.component'
+          ).then((m) => m.AboutUsPageComponent),
+      },
+      {
+        path: 'forbidden',
+        loadComponent: () =>
+          import('./core/layout/forbidden/forbidden.component').then(
+            (m) => m.ForbiddenComponent
+          ),
+        title: 'Access Denied - Cartly',
+      },
     ],
-    
     },
+     {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    loadChildren: () =>
+      import('./features/admin-dashboard/admin.routes').then((m)=>m.adminProfileRoutes)
+    }, 
     {
     path: 'profile',
     component: UserProfileLayoutComponent,
-    loadChildren: () => 
+    loadChildren: () =>
       import('./features/user-profile/userProfile.routes').then((m)=>m.userProfileRoutes)
-    }, 
-     
+    },
+
     {
     path: 'auth',
     canActivate: [guestGuard],
     loadChildren: () =>
       import('./core/auth/auth.routes').then((m) => m.authRoutes),
-    },
-    {
-    path: 'admin',
-    component: AdminLayoutComponent,
-    loadChildren: () => 
-      import('./features/admin-dashboard/admin.routes').then((m)=>m.adminProfileRoutes)
-    }, 
-    {
-    path: 'forbidden',
-    loadComponent: () =>
-      import('./core/layout/forbidden/forbidden.component').then(
-      (m) => m.ForbiddenComponent
-      ),
-    title: 'Access Denied - Cartly',
-    },
-  {
-    path: 'contact',
-    loadComponent: () =>
-      import(
-        './features/contact/pages/contact-page/contact-page.component'
-      ).then((m) => m.ContactPageComponent)
-  },
-  {
-    path: 'about-us',
-    loadComponent: () =>
-      import(
-        './features/about-us/pages/about-us-page/about-us-page.component'
-      ).then((m) => m.AboutUsPageComponent)
-
   },
   {
     path: '**',
