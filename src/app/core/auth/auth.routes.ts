@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 
 export const authRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('../auth/pages/login/login.component').then(
@@ -20,25 +25,25 @@ export const authRoutes: Routes = [
   {
     path: 'forgot-password',
     loadComponent: () =>
-      import(
-        '../auth/pages/forgot-password/forgot-password.component'
-      ).then((m) => m.ForgotPasswordComponent),
+      import('../auth/pages/forgot-password/forgot-password.component').then(
+        (m) => m.ForgotPasswordComponent
+      ),
     title: 'Forgot Password - Cartly',
   },
   {
     path: 'reset-password',
     loadComponent: () =>
-      import(
-        '../auth/pages/reset-password/reset-password.component'
-      ).then((m) => m.ResetPasswordComponent),
+      import('../auth/pages/reset-password/reset-password.component').then(
+        (m) => m.ResetPasswordComponent
+      ),
     title: 'Reset Password - Cartly',
   },
   {
     path: 'verify-email',
     loadComponent: () =>
-      import(
-        '../auth/pages/verify-email/verify-email.component'
-      ).then((m) => m.VerifyEmailComponent),
+      import('../auth/pages/verify-email/verify-email.component').then(
+        (m) => m.VerifyEmailComponent
+      ),
     title: 'Verify Email - Cartly',
   },
 ];
