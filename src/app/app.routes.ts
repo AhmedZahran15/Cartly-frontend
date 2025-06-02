@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth.guard';
 import { guestGuard } from '@core/auth/guards/guest.guard';
 import { MainLayoutComponent } from '@core/layout/main-layout/main-layout.component';
-import {userProfileRoutes} from './features/user-profile/userProfile.routes'
+import { userProfileRoutes } from './features/user-profile/userProfile.routes';
 import { UserProfileLayoutComponent } from '@features/user-profile/components/user-profile-layout/user-profile-layout.component';
 import { AdminLayoutComponent } from '@features/admin-dashboard/admin-layout/admin-layout.component';
-import { adminProfileRoutes } from './features/admin-dashboard/admin.routes'
+import { adminProfileRoutes } from './features/admin-dashboard/admin.routes';
 export const routes: Routes = [
   {
     path: '',
@@ -43,21 +43,25 @@ export const routes: Routes = [
         title: 'Access Denied - Cartly',
       },
     ],
-    },
-     {
+  },
+  {
     path: 'admin',
     component: AdminLayoutComponent,
     loadChildren: () =>
-      import('./features/admin-dashboard/admin.routes').then((m)=>m.adminProfileRoutes)
-    }, 
-    {
+      import('./features/admin-dashboard/admin.routes').then(
+        (m) => m.adminProfileRoutes
+      ),
+  },
+  {
     path: 'profile',
     component: UserProfileLayoutComponent,
     loadChildren: () =>
-      import('./features/user-profile/userProfile.routes').then((m)=>m.userProfileRoutes)
-    },
+      import('./features/user-profile/userProfile.routes').then(
+        (m) => m.userProfileRoutes
+      ),
+  },
 
-    {
+  {
     path: 'auth',
     canActivate: [guestGuard],
     loadChildren: () =>
