@@ -25,7 +25,6 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(req);
   }
 
-  // Define public endpoints that don't require authentication with their HTTP methods
   const publicEndpoints = [
     // User/Auth endpoints
     { path: '/api/users/login', method: 'POST' },
@@ -140,7 +139,4 @@ export const authInterceptor: HttpInterceptorFn = (
       return throwError(() => error);
     })
   );
-
-  // This should never be reached due to the refactored logic above
-  return next(req);
 };
