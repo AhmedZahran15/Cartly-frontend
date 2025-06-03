@@ -1,54 +1,100 @@
-<section class="relative min-h-screen bg-cover bg-center py-35 mt-40"
-         style="background-image: url('/bgWatchCollection.png')">
-
-  <div class="container mx-auto px-4 relative z-10">
-    <!-- Headings -->
-    <div class="text-center mb-16">
-      <h6 class="text-2xl text-secondary tracking-widest mb-4">EXCLUSIVE PRODUCTS</h6>
-      <h1 class="text-5xl md:text-7xl text-primary ">NEW TECHNOLOGY</h1>
-    </div>
-
-    <!-- Desktop Grid -->
-    <div class="hidden md:block">
-      <!-- First Row -->
-      <div class="grid grid-cols-1 md:grid-cols-3 mb-12">
-        <app-product-card 
-          *ngFor="let product of products.slice(0, 3)"
-          [product]="product"
-          (onAddToCart)="handleAddToCart($event)"
-          (onAddToWishlist)="handleAddToWishlist($event)">
-        </app-product-card>
-      </div>
-      <!-- Second Row -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <app-product-card 
-          *ngFor="let product of products.slice(3, 6)"
-          [product]="product"
-          (onAddToCart)="handleAddToCart($event)"
-          (onAddToWishlist)="handleAddToWishlist($event)">
-        </app-product-card>
-      </div>
-    </div>
-
-    <!-- Mobile Carousel -->
-    <div class="block md:hidden">
-      <p-carousel
-        [value]="products"
-        [numVisible]="1"
-        [numScroll]="1"
-        [circular]="true"
-        [showIndicators]="false"
-        [showNavigators]="true"
-        [autoplayInterval]="4000"
+<section
+  class="relative min-h-screen bg-cover bg-center bg-fixed py-20 lg:py-32 mt-20 lg:mt-40 overflow-hidden"
+  style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+      url('/bgWatchCollection.png');
+  "
+>
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <div
+      class="text-center mb-16 lg:mb-24 transform transition-all duration-1000 ease-out"
+    >
+      <h6
+        class="text-lg sm:text-xl lg:text-2xl text-secondary tracking-[0.3em] mb-6 font-light uppercase animate-fade-in-up"
       >
-        <ng-template pTemplate="item" let-product>
+        Exclusive Products
+      </h6>
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-primary font-bold leading-tight animate-fade-in-up animation-delay-200"
+      >
+        New Technology
+      </h1>
+      <div
+        class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-8 rounded-full"
+      ></div>
+    </div>
+
+    <div class="hidden lg:block">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12 mb-12">
+        <div
+          class="product-card-fade-in transform transition-all duration-500 hover:scale-105"
+          *ngFor="let product of products.slice(0, 3); let i = index"
+        >
           <app-product-card
             [product]="product"
             (onAddToCart)="handleAddToCart($event)"
-            (onAddToWishlist)="handleAddToWishlist($event)">
+            (onAddToWishlist)="handleAddToWishlist($event)"
+          >
           </app-product-card>
-        </ng-template>
-      </p-carousel>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
+        <div
+          class="product-card-fade-in transform transition-all duration-500 hover:scale-105"
+          *ngFor="let product of products.slice(3, 6); let i = index"
+          [style.animation-delay]="600 + i * 200 + 'ms'"
+        >
+          <app-product-card
+            [product]="product"
+            (onAddToCart)="handleAddToCart($event)"
+            (onAddToWishlist)="handleAddToWishlist($event)"
+          >
+          </app-product-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="block lg:hidden">
+      <div class="relative px-4">
+        <p-carousel
+          [value]="products"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true"
+          [autoplayInterval]="5000"
+          [showIndicators]="false"
+          [showNavigators]="true"
+          [responsiveOptions]="[
+            {
+              breakpoint: '768px',
+              numVisible: 1,
+              numScroll: 1
+            },
+            {
+              breakpoint: '640px',
+              numVisible: 1,
+              numScroll: 1
+            }
+          ]"
+          styleClass="custom-carousel"
+        >
+          <ng-template pTemplate="item" let-product>
+            <div class="px-2">
+              <app-product-card
+                [product]="product"
+                (onAddToCart)="handleAddToCart($event)"
+                (onAddToWishlist)="handleAddToWishlist($event)"
+              >
+              </app-product-card>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
     </div>
   </div>
+
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 pointer-events-none"
+  ></div>
 </section>

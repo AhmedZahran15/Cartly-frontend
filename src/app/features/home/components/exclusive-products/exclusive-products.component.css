@@ -1,0 +1,83 @@
+/* Animation keyframes for fade-in effects */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+/* Product card animation */
+.product-card-fade-in {
+  animation: fade-in-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Staggered animation delays */
+.product-card-fade-in:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.product-card-fade-in:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.product-card-fade-in:nth-child(3) {
+  animation-delay: 400ms;
+}
+
+/* Custom carousel styling */
+::ng-deep .custom-carousel {
+  .p-carousel-content {
+    overflow: visible;
+  }
+
+  .p-carousel-prev,
+  .p-carousel-next {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--p-primary-color);
+    border: 1px solid var(--p-primary-color);
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .p-carousel-prev:hover,
+  .p-carousel-next:hover {
+    background: var(--p-primary-color);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .p-carousel-indicators {
+    .p-carousel-indicator {
+      background: rgba(255, 255, 255, 0.5);
+
+      &.p-highlight {
+        background: var(--p-primary-color);
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .product-card-fade-in {
+    animation-delay: 0ms !important;
+  }
+}
