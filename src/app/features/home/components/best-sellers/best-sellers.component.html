@@ -1,9 +1,8 @@
-<section class="container mx-auto px-4 py-16">
+<section class="container mx-auto px-4 py-16 mb-10 md:mb-20">
   <h6 class="text-on-background text-center pb-5 text-2xl">Glamor Edition</h6>
   <h2 class="text-7xl text-on-surface text-center mb-12">
     Special Collections
   </h2>
-
   <div class="md:px-12">
     <p-carousel
       #carousel
@@ -15,14 +14,15 @@
       [showNavigators]="true"
       [autoplayInterval]="2000"
       [circular]="true"
+      [contentClass]="'!py-8'"
     >
       <ng-template let-product #item>
-        <app-product-card
-          [product]="product"
-          (onAddToCart)="handleAddToCart($event)"
-          (onAddToWishlist)="handleAddToWishlist($event)"
-        >
-        </app-product-card>
+          <app-product-card
+            [product]="product"
+            (onAddToCart)="handleAddToCart($event)"
+            (onAddToWishlist)="handleAddToWishlist($event)"
+          >
+          </app-product-card>
       </ng-template>
     </p-carousel>
   </div>

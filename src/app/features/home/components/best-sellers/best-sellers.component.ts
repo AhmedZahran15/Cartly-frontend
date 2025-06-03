@@ -13,10 +13,10 @@ export class BestSellersComponent {
   @Input() products: any[] = [];
 
   responsiveOptions = [
-    { breakpoint: '1400px', numVisible: 3, numScroll: 1 },
-    { breakpoint: '1199px', numVisible: 2, numScroll: 1 },
-    { breakpoint: '767px', numVisible: 2, numScroll: 1 },
-    { breakpoint: '575px', numVisible: 1, numScroll: 1 },
+    { breakpoint: '1200px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '992px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '768px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '576px', numVisible: 1, numScroll: 1 },
   ];
 
   handleAddToCart(product: any) {
