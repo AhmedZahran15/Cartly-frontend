@@ -17,12 +17,14 @@
       [contentClass]="'!py-8'"
     >
       <ng-template let-product #item>
+        <div class="m-4">
           <app-product-card
             [product]="product"
             (onAddToCart)="handleAddToCart($event)"
             (onAddToWishlist)="handleAddToWishlist($event)"
           >
           </app-product-card>
+        </div>
       </ng-template>
     </p-carousel>
   </div>
