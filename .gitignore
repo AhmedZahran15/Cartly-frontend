@@ -47,3 +47,5 @@ Thumbs.db
 # But keep templates
 !/src/environments/environment.template.ts
 !/src/environments/environment.prod.template.ts
+
+modern-angular.mdc
