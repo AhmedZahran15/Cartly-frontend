@@ -8,8 +8,8 @@
     <!-- Mobile Header -->
     <div class="lg:hidden">
       <button
-        class="text-primary text-2xl"
-        (click)="menuVisible = !menuVisible"
+        class="text-primary hover:text-primary/80 text-2xl transition-all duration-200 hover:scale-105"
+        (click)="menuVisible.set(!menuVisible())"
         aria-label="Toggle Menu"
       >
         <i class="pi pi-bars"></i>
@@ -17,7 +17,9 @@
     </div>
 
     <!-- Desktop Navigation -->
-    <ul class="hidden lg:flex flex-1 justify-center space-x-8 list-none p-0 m-0 text-xl">
+    <ul
+      class="hidden lg:flex flex-1 justify-center space-x-8 list-none p-0 m-0 text-xl"
+    >
       <li *ngFor="let link of links" class="relative group">
         <a
           [routerLink]="link.path"
@@ -25,22 +27,36 @@
           pRipple
         >
           {{ link.label }}
-          <div class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></div>
+          <div
+            class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"
+          ></div>
         </a>
       </li>
     </ul>
 
     <!-- Desktop Icons -->
-    <div class="hidden lg:flex items-center space-x-4">
+    <div class="hidden lg:flex items-center space-x-6">
+      <!-- Theme Toggle Button -->
       <i
-        class="pi pi-user text-on-background hover:text-primary cursor-pointer"
+        [class]="getThemeIcon()"
+        class="text-on-background hover:text-primary cursor-pointer text-lg transition-all duration-200 hover:scale-110"
+        (click)="toggleTheme()"
+        [attr.aria-label]="
+          isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+        "
+      ></i>
+
+      <!-- User Profile Menu -->
+      <i
+        class="pi pi-user text-on-background hover:text-primary cursor-pointer text-lg transition-all duration-200 hover:scale-110"
         (click)="profileMenu.toggle($event)"
       ></i>
-      <p-menu #profileMenu [popup]="true" [model]="profileMenuItems"></p-menu>
+      <p-menu #profileMenu [popup]="true" [model]="profileMenuItems()"></p-menu>
 
+      <!-- Cart Icon -->
       <i
-        class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer relative text-lg"
-        (click)="cartVisible = true"
+        class="pi pi-shopping-cart text-on-background hover:text-primary cursor-pointer text-lg transition-all duration-200 hover:scale-110 relative"
+        (click)="cartVisible.set(true)"
       >
         <span
           *ngIf="cartService.itemCount > 0"
@@ -55,13 +71,13 @@
     <div
       class="lg:hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center transition-all duration-300"
       [ngClass]="{
-        'opacity-100 visible': menuVisible,
-        'opacity-0 invisible': !menuVisible
+        'opacity-100 visible': menuVisible(),
+        'opacity-0 invisible': !menuVisible()
       }"
     >
       <button
-        class="absolute top-4 right-6 text-white text-3xl"
-        (click)="menuVisible = false"
+        class="absolute top-4 right-6 text-white hover:text-primary text-3xl transition-all duration-200 hover:scale-110"
+        (click)="menuVisible.set(false)"
         aria-label="Close Menu"
       >
         <i class="pi pi-times"></i>
@@ -70,7 +86,7 @@
         <li *ngFor="let link of links">
           <a
             [routerLink]="link.path"
-            (click)="menuVisible = false"
+            (click)="menuVisible.set(false)"
             class="hover:text-primary transition-colors"
           >
             {{ link.label }}
@@ -79,7 +95,7 @@
         <li>
           <a
             class="hover:text-primary transition-colors cursor-pointer"
-            (click)="profileMenu.toggle($event); menuVisible = false"
+            (click)="profileMenu.toggle($event); menuVisible.set(false)"
           >
             Profile
           </a>
@@ -87,16 +103,29 @@
         <li>
           <a
             class="hover:text-primary transition-colors cursor-pointer relative"
-            (click)="cartVisible = true; menuVisible = false"
+            (click)="cartVisible.set(true); menuVisible.set(false)"
           >
             Cart
             <span
               *ngIf="cartService.itemCount > 0"
-              class="absolute top-0 -right-0 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
+              class="absolute -top-1 -right-1 bg-primary text-on-background rounded-full h-5 w-5 text-xs flex items-center justify-center"
             >
               {{ cartService.itemCount }}
             </span>
           </a>
+        </li>
+        <!-- Theme Toggle for Mobile -->
+        <li class="mt-8">
+          <div class="flex items-center justify-center">
+            <i
+              [class]="getThemeIcon()"
+              class="text-white hover:text-primary cursor-pointer text-lg transition-all duration-200 hover:scale-110"
+              (click)="toggleTheme()"
+              [attr.aria-label]="
+                isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+              "
+            ></i>
+          </div>
         </li>
       </ul>
     </div>
@@ -117,7 +146,7 @@
     <button
       pButton
       icon="pi pi-arrow-right"
-      (click)="cartVisible = false"
+      (click)="cartVisible.set(false)"
       class="absolute top-1 left-2"
       [ngClass]="{
         'p-button-rounded': true,
@@ -133,7 +162,9 @@
 
     <div class="h-full flex flex-col">
       <div class="border-b border-border pb-4">
-        <h2 class="text-2xl font-bold text-on-background mt-8 px-4">Your Cart</h2>
+        <h2 class="text-2xl font-bold text-on-background mt-8 px-4">
+          Your Cart
+        </h2>
       </div>
 
       <div class="flex-1 overflow-y-auto p-4">
@@ -145,14 +176,18 @@
         </div>
 
         <div *ngFor="let item of cartService.items" class="mb-4">
-          <div class="flex gap-4 p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg">
+          <div
+            class="flex gap-4 p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg"
+          >
             <img
               [src]="item.imageUrl"
               class="w-20 h-20 object-cover rounded-lg border border-border"
               alt="Product image"
             />
             <div class="flex-1">
-              <h3 class="font-semibold text-lg mb-1 text-on-surface">{{ item.name }}</h3>
+              <h3 class="font-semibold text-lg mb-1 text-on-surface">
+                {{ item.name }}
+              </h3>
               <p class="text-primary font-medium mb-2">Rs. {{ item.price }}</p>
               <div class="flex items-center gap-3">
                 <button
@@ -162,7 +197,9 @@
                   [disabled]="item.quantity === 1"
                   (click)="cartService.updateQuantity(item, -1)"
                 ></button>
-                <span class="w-8 text-center text-on-surface">{{ item.quantity }}</span>
+                <span class="w-8 text-center text-on-surface">{{
+                  item.quantity
+                }}</span>
                 <button
                   pButton
                   icon="pi pi-plus"
@@ -189,10 +226,7 @@
           pButton
           label="Checkout"
           [disabled]="cartService.items.length === 0"
-          class="w-full
-                 !bg-primary !border-primary !text-on-surface
-                 hover:!bg-primary/90
-                 disabled:!bg-surface disabled:!border-border disabled:!text-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full !bg-primary !border-primary !text-on-surface hover:!bg-primary/90 disabled:!bg-surface disabled:!border-border disabled:!text-secondary disabled:opacity-50 disabled:cursor-not-allowed"
         ></button>
       </div>
     </div>
